@@ -1,4 +1,4 @@
-elaphurus
+Elaphurus
 =========
 
 PHP Framework
