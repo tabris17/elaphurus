@@ -8,12 +8,10 @@
 
 namespace Ela\Log\Appender;
 
-use Ela\Log\Appender;
-
 /**
- * ChromePHP ÈÕÖ¾Êä³öÆ÷
+ * ChromePHP æ—¥å¿—è¾“å‡ºå™¨
  */
-class ChromePhp extends Appender
+class ChromePhp extends AbstractAppender
 {
 	
 }

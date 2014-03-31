@@ -8,12 +8,28 @@
 
 namespace Ela\Log\Appender;
 
-use Ela\Log\Appender;
-
 /**
- * PHP 流日志输出器
+ * PHP 娴佹棩蹇楄緭鍑哄櫒
  */
-class Stream extends Appender
+class Stream extends AbstractAppender
 {
+	public function __construct()
+	{
+		
+	}
 	
+	public function start()
+	{
+		$this->isStarted = true;
+	}
+	
+	public function stop()
+	{
+		$this->isStarted = false;
+	}
+	
+	public function append($logEvent)
+	{
+		
+	}
 }

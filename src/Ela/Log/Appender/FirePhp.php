@@ -8,12 +8,10 @@
 
 namespace Ela\Log\Appender;
 
-use Ela\Log\Appender;
-
 /**
- * FirePHP ÈÕÖ¾Êä³öÆ÷
+ * FirePHP æ—¥å¿—è¾“å‡ºå™¨
  */
-class FirePhp extends Appender
+class FirePhp extends AbstractAppender
 {
 	
 }

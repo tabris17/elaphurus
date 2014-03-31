@@ -9,7 +9,7 @@
 namespace Ela\Mail;
 
 /**
- * 邮件模块异常接口
+ * 閭欢妯″潡寮傚父鎺ュ彛
  */
 interface Exception extends \Ela\Exception
 { }

@@ -9,7 +9,7 @@
 namespace Ela\Log;
 
 /**
- * 实现日志依赖接口
+ * 瀹炵幇鏃ュ織渚濊禆鎺ュ彛
  */
 trait LoggerAwareTrait
 {
@@ -19,7 +19,7 @@ trait LoggerAwareTrait
     protected $logger = null;
 
     /**
-     * 为对象设置日志记录器
+     * 涓哄璞¤缃棩蹇楄褰曞櫒
      *
      * @param LoggerInterface $logger
      * @return mixed
@@ -31,7 +31,7 @@ trait LoggerAwareTrait
     }
 
     /**
-     * 获得对象的日志记录器
+     * 鑾峰緱瀵硅薄鐨勬棩蹇楄褰曞櫒
      *
      * @return null|LoggerInterface
      */

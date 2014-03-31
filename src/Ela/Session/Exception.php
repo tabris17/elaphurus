@@ -9,7 +9,7 @@
 namespace Ela\Session;
 
 /**
- * 会话模块异常接口
+ * 浼氳瘽妯″潡寮傚父鎺ュ彛
  */
 interface Exception extends \Ela\Exception
 { }

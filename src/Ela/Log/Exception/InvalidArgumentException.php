@@ -11,7 +11,7 @@ namespace Ela\Log\Exception;
 use Ela\Log\Exception;
 
 /**
- * 非法参数异常
+ * 闈炴硶鍙傛暟寮傚父
  */
 class InvalidArgumentException extends \InvalidArgumentException implements Exception
 { }

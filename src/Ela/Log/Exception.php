@@ -9,7 +9,7 @@
 namespace Ela\Log;
 
 /**
- * 日志异常接口
+ * 鏃ュ織寮傚父鎺ュ彛
  */
 interface Exception extends \Ela\Exception
 { }

@@ -8,12 +8,17 @@
 
 namespace Ela\Log\Appender;
 
-use Ela\Log\Appender;
-
 /**
- * Syslog ÈÕÖ¾Êä³öÆ÷
+ * Syslog æ—¥å¿—è¾“å‡ºå™¨
  */
-class Syslog extends Appender
+class Syslog extends AbstractAppender
 {
-	
+	/**
+	 * (non-PHPdoc)
+	 * @see \Ela\Log\Appender\AbstractAppender::append()
+	 */
+	public function append($logEvent)
+	{
+		syslog($priority, $message);
+	}
 }

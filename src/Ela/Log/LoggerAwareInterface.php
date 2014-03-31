@@ -9,12 +9,12 @@
 namespace Ela\Log;
 
 /**
- * 日志依赖接口
+ * 鏃ュ織渚濊禆鎺ュ彛
  */
 interface LoggerAwareInterface
 {
 	/**
-	 * 为对象设置日志记录器
+	 * 涓哄璞¤缃棩蹇楄褰曞櫒
 	 *
 	 * @param LoggerInterface $logger
 	 * @return null

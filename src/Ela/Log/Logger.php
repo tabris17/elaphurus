@@ -9,22 +9,45 @@
 namespace Ela\Log;
 
 /**
- * ��־��¼��
+ * 日志记录器
  */
 class Logger implements LoggerInterface
 {
 	/**
+	 * 日志输出器接口
 	 * 
-	 * @var Appender
+	 * @var AppenderInterface
 	 */
 	protected $appender;
+	
+	/**
+	 * 日志事件队列
+	 * 
+	 * @var \SplQueue
+	 */
+	protected $logEvents;
+	
+	/**
+	 * 自动提交
+	 * 
+	 * @var boolean
+	 */
+	protected $autoCommit = true;
+	
+	/**
+	 * 日志记录的最低级别
+	 * 
+	 * @var integer
+	 */
+	protected $level = PHP_INT_MAX;
 	
 	/**
 	 * Construction
 	 */
 	public function __construct()
 	{
-		
+		$this->logEvents = new \SplQueue();
+		$this->appender = new Appender\Null();
 	}
 	
 	/**
@@ -105,40 +128,67 @@ class Logger implements LoggerInterface
 	 */
 	public function log($level, $message, array $context = array())
 	{
+		if ($level > $this->logLevel) return;
+		
 		if (is_object($message) && !method_exists($message, '__toString')) {
 			throw new Exception\InvalidArgumentException('');
 		}
-		$levelName = Level::getName($level);
-		$log = array(
-			'timestamp',
-			'level'		=> $level,
-			'levelName'	=> $levelName,
-			'message'	=> $message,
-			'context'	=> $context,
-		);
+		
+		$logEvent = new LogEvent($level, $message, $context);
+		$this->logEvents->enqueue($logEvent);
+		if ($this->autoCommit) {
+			$this->commit();
+		}
+	}
+
+	/**
+	 * 设置日志记录的最低级别
+	 * 
+	 * @param integer $level
+	 * @return null
+	 */
+	public function setLevel($level)
+	{
+		$this->level = (int)$level;
 	}
 	
 	/**
-	 * ������־�����
+	 * 获得日志记录的最低级别
 	 * 
-	 * @param Appender $appender
-	 * @return Appender
+	 * @return integer
 	 */
-	public function addAppender($appender)
+	public function getLevel()
 	{
-		return $this->appender = $this->appender->insert($appender);
+		return $this->level;
 	}
-
+	
 	/**
-	 * Destructor
-	 * 
-	 * �ر�ȫ����־�������
+	 * 开启日志事务
 	 */
-	public function __destruct()
+	public function begin()
 	{
-		try {
-			$this->appender->close();
-		} catch (\Exception $e) { }
+		$this->autoCommit = false;
 	}
-
+	
+	/**
+	 * 提交日志事务
+	 */
+	public function commit()
+	{
+		$this->appender->open();
+		foreach ($this->logEvents as $logEvent) {
+			$this->appender->append($logEvent);
+		}
+		$this->appender->close();
+		$this->logEvents = new \SplQueue();
+	}
+	
+	/**
+	 * 回滚日志事务
+	 */
+	public function rollback()
+	{
+		$this->logEvents = new \SplQueue();
+		$this->autoCommit = true;
+	}
 }

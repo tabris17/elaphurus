@@ -9,7 +9,7 @@
 namespace Ela\Test;
 
 /**
- * 测试模块异常接口
+ * 娴嬭瘯妯″潡寮傚父鎺ュ彛
  */
 interface Exception extends \Ela\Exception
 { }

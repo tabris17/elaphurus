@@ -9,12 +9,12 @@
 namespace Ela\Log;
 
 /**
- * ÈÕÖ¾µÈ¼¶
+ * æ—¥å¿—ç­‰çº§
  */
 class Level
 {
 	/**
-	 * @const integer ¶¨ÒåÈÕÖ¾µÈ¼¶
+	 * @const integer å®šä¹‰æ—¥å¿—ç­‰çº§
 	 */
 	const EMERGENCY	= 0;
 	const ALERT		= 1;
@@ -28,11 +28,11 @@ class Level
 	
 
 	/**
-	 * PHP´íÎóÂëºÍÈÕÖ¾µÈ¼¶Ó³Éä±í
+	 * PHPé”™è¯¯ç å’Œæ—¥å¿—ç­‰çº§æ˜ å°„è¡¨
 	 *
 	 * @var array
 	 */
-	public static $errorLevelMap = array(
+	protected static $errorLevelMap = array(
 		E_NOTICE            => self::NOTICE,
 		E_USER_NOTICE       => self::NOTICE,
 		E_WARNING           => self::WARNING,
@@ -48,7 +48,7 @@ class Level
 	);
 	
 	/**
-	 * ÈÕÖ¾µÈ¼¶Ãû³Æ±í
+	 * æ—¥å¿—ç­‰çº§åç§°è¡¨
 	 *
 	 * @var array
 	*/
@@ -64,7 +64,7 @@ class Level
 	);
 	
 	/**
-	 * »ñµÃÈÕÖ¾µÈ¼¶µÄÃû³Æ
+	 * è·å¾—æ—¥å¿—ç­‰çº§çš„åç§°
 	 * 
 	 * @param integer $level
 	 * @throws Exception\InvalidArgumentException
@@ -76,5 +76,19 @@ class Level
 			throw new Exception\InvalidArgumentException('');
 		}
 		return self::$names[$level];
+	}
+	
+	/**
+	 * è·å¾— PHP é”™è¯¯ä»£ç å¯¹åº”çš„æ—¥å¿—ç­‰çº§
+	 * 
+	 * @param integer $errorCode
+	 * @return integer
+	 */
+	public static function getErrorLevel($errorCode)
+	{
+		if (!isset(self::$errorLevelMap[$errorCode])) {
+			throw new Exception\InvalidArgumentException('');
+		}
+		return self::$errorLevelMap[$errorCode];
 	}
 }

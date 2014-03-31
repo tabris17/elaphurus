@@ -8,12 +8,10 @@
 
 namespace Ela\Log\Appender;
 
-use Ela\Log\Appender;
-
 /**
- * 数据库日志输出器
+ * 鏁版嵁搴撴棩蹇楄緭鍑哄櫒
  */
-class Db extends Appender
+class Db extends AbstractAppender
 {
 	
 }

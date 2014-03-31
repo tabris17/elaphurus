@@ -9,7 +9,7 @@
 namespace Ela\Log;
 
 /**
- * ÈÕÖ¾¼ÇÂ¼Æ÷½Ó¿Ú£¨PSR-3 ¹æ·¶£©
+ * æ—¥å¿—è®°å½•å™¨æ¥å£ï¼ˆPSR-3 è§„èŒƒï¼‰
  */
 interface LoggerInterface
 {
