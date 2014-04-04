@@ -16,39 +16,11 @@ use Ela\Log\AppenderInterface;
 abstract class AbstractAppender implements AppenderInterface
 {
 	/**
-	 * 输出样式接口
-	 * 
-	 * @var \Ela\Log\LayoutInterface
-	 */
-	protected $layout;
-	
-	/**
 	 * 输出器是否已经启动
 	 * 
 	 * @var boolean
 	 */
 	protected $isStarted = false;
-	
-	/**
-	 * Constructor
-	 * 
-	 * @param string $name 输出器名称
-	 * @param \Ela\Log\LayoutInterface $layout 输出样式接口
-	 * @return null
-	 */
-	public function setLayout($layout)
-	{
-		$this->layout = $layout;
-	}
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see \Ela\Log\AppenderInterface::getLayout()
-	 */
-	public function getLayout()
-	{
-		return $this->layout;
-	}
 	
 	/**
 	 * 安装过滤器

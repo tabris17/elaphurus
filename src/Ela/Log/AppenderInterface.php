@@ -1,4 +1,11 @@
 <?php
+/**
+ * Elaphurus Framework
+ *
+ * @link      https://github.com/tabris17/elaphurus
+ * @license   Public Domain (http://en.wikipedia.org/wiki/Public_domain)
+ */
+
 namespace Ela\Log;
 
 /**
@@ -13,21 +20,6 @@ interface AppenderInterface
 	 * @return null
 	 */
 	public function append($logEvent);
-	
-	/**
-	 * 获得日志输出器的格式
-	 * 
-	 * @return LayoutInterface
-	 */
-	public function getLayout();
-	
-	/**
-	 * 设置日志输出器的格式
-	 * 
-	 * @param LayoutInterface $layout
-	 * @return null
-	 */
-	public function setLayout($layout);
 
 	/**
 	 * 开启输出器

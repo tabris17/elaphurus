@@ -73,7 +73,8 @@ class Level
 	public static function getName($level)
 	{
 		if (!isset(self::$names[$level])) {
-			throw new Exception\InvalidArgumentException('');
+			//throw new Exception\InvalidArgumentException('');
+			return 'UNKNOWN';
 		}
 		return self::$names[$level];
 	}
@@ -87,7 +88,8 @@ class Level
 	public static function getErrorLevel($errorCode)
 	{
 		if (!isset(self::$errorLevelMap[$errorCode])) {
-			throw new Exception\InvalidArgumentException('');
+			//throw new Exception\InvalidArgumentException('');
+			return self::NOTICE;
 		}
 		return self::$errorLevelMap[$errorCode];
 	}

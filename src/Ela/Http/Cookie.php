@@ -6,12 +6,9 @@
  * @license   Public Domain (http://en.wikipedia.org/wiki/Public_domain)
  */
 
-namespace Ela\Log\Appender;
+namespace Ela\Http;
 
-/**
- * FirePHP 日志输出器
- */
-class FirePhp extends AbstractAppender
+class Cookie
 {
 	
 }

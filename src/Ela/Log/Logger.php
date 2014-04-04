@@ -8,6 +8,8 @@
 
 namespace Ela\Log;
 
+use Ela\Log\Exception\InvalidArgumentException;
+
 /**
  * 日志记录器
  */
@@ -48,6 +50,27 @@ class Logger implements LoggerInterface
 	{
 		$this->logEvents = new \SplQueue();
 		$this->appender = new Appender\Null();
+	}
+	
+	/**
+	 * 设置日志输出器
+	 * 
+	 * @param AppenderInterface $appender
+	 * @return null
+	 */
+	public function setAppender(AppenderInterface $appender)
+	{
+		$this->appender = $appender;
+	}
+	
+	/**
+	 * 获取日志输出器
+	 * 
+	 * @return AppenderInterface 
+	 */
+	public function getAppender()
+	{
+		return $this->appender;
 	}
 	
 	/**
@@ -128,12 +151,7 @@ class Logger implements LoggerInterface
 	 */
 	public function log($level, $message, array $context = array())
 	{
-		if ($level > $this->logLevel) return;
-		
-		if (is_object($message) && !method_exists($message, '__toString')) {
-			throw new Exception\InvalidArgumentException('');
-		}
-		
+		if ($level > $this->level) return;
 		$logEvent = new LogEvent($level, $message, $context);
 		$this->logEvents->enqueue($logEvent);
 		if ($this->autoCommit) {
@@ -175,11 +193,12 @@ class Logger implements LoggerInterface
 	 */
 	public function commit()
 	{
-		$this->appender->open();
+		$appender = $this->appender;
+		$appender->start();
 		foreach ($this->logEvents as $logEvent) {
-			$this->appender->append($logEvent);
+			$appender->append($logEvent);
 		}
-		$this->appender->close();
+		$appender->stop();
 		$this->logEvents = new \SplQueue();
 	}
 	
@@ -190,5 +209,92 @@ class Logger implements LoggerInterface
 	{
 		$this->logEvents = new \SplQueue();
 		$this->autoCommit = true;
+	}
+	
+	/**
+	 * 
+	 * @param Logger $logger
+	 * @param boolean $continue
+	 * @return mixed
+	 */
+	public static function registerErrorHandler(Logger $logger, $continue = false)
+	{
+		return set_error_handler(function ($level, $message, $file, $line, $context) use ($logger, $continue) {
+			if (error_reporting() & $level) {
+				$logger->log(Level::getErrorLevel($level), $message, array(
+					'errno'		=> $level,
+					'file'		=> $file,
+					'line'		=> $line,
+					'context'	=> $context,
+				));
+			}
+			return !$continue;
+		});
+	}
+	
+	/**
+	 * 
+	 * @return boolean
+	 */
+	public static function unregisterErrorHandler()
+	{
+		return restore_error_handler();
+	}
+	
+	/**
+	 * 
+	 * @param Logger $logger
+	 * @return callback
+	 */
+	public static function registerExceptionHandler(Logger $logger)
+	{
+		return set_exception_handler(function ($exception) use ($logger) {
+			do {
+				$priority = Level::ERROR;
+				if ($exception instanceof ErrorException) {
+					$priority = Level::getErrorLevel($exception->getSeverity());
+				}
+				$context = array(
+					'file'  => $exception->getFile(),
+					'line'  => $exception->getLine(),
+					'trace' => $exception->getTrace(),
+				);
+				if (isset($exception->xdebug_message)) {
+					$context['xdebug'] = $exception->xdebug_message;
+				}
+				$logger->log($priority, $exception->getMessage(), $context);
+				$exception = $exception->getPrevious();
+			} while ($exception);
+		});
+	}
+	
+	/**
+	 * 
+	 * @return boolean
+	 */
+	public static function unregisterExceptionHandler()
+	{
+		return restore_exception_handler();
+	}
+	
+	/**
+	 * 
+	 * @param Logger $logger
+	 * @return null
+	 */
+	public static function registeredFatalErrorHandler(Logger $logger)
+	{
+		register_shutdown_function(function () use ($logger) {
+			$error = error_get_last();
+			if (null !== $error && $error['type'] === E_ERROR) {
+				$logger->log(Level::getErrorLevel(E_ERROR),
+					$error['message'],
+					array(
+						'file' => $error['file'],
+						'line' => $error['line']
+					)
+				);
+			}
+		});
 	}
 }

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Elaphurus Framework
+ *
+ * @link      https://github.com/tabris17/elaphurus
+ * @license   Public Domain (http://en.wikipedia.org/wiki/Public_domain)
+ */
+
 namespace Ela\Log\Filter;
 
 /**
@@ -30,7 +37,6 @@ class Closure extends AbstractFilter
 	 */
 	public function bind($closure)
 	{
-		$closure->bindTo($this, $this);
 		$this->closure = $closure;
 	}
 }

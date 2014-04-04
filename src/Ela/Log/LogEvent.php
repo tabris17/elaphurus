@@ -40,6 +40,7 @@ class LogEvent
 	/**
 	 * Constructor
 	 * 
+	 * @param integer $level
 	 * @param string $message
 	 * @param array $context
 	 */
@@ -75,5 +76,4 @@ class LogEvent
 	{
 		return $this->context;
 	}
-	
 }

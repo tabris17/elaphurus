@@ -79,11 +79,82 @@ class SerializableClosure
 	public function getCode()
 	{
 		$reflection = $this->reflection;
-		$reflection->getFileName();
-		$reflection->getStartLine();
 		$reflection->getEndLine();
 		$reflection->getParameters();
-		return 'function () {}';
+		$file = new \SplFileObject($reflection->getFileName());
+		$file->seek($reflection->getStartLine() - 1);
+		$source = '';
+		while ($file->key() < $reflection->getEndLine()) {
+			$source .= $file->current();
+			$file->next();
+		}
+		$tokens = token_get_all('<?php ' . $source);
+		$isFunction = function ($token) {
+			if (is_array($token)) {
+				list ($name, $code) = $token;
+				return $name === T_FUNCTION;
+			}
+			return false;
+		};
+		$isWhitespace = function ($token) {
+			if (is_array($token)) {
+				list ($name, $code) = $token;
+				return $name === T_WHITESPACE;
+			}
+			return false;
+		};
+		$isOpenBrace = function ($token) {
+			if (is_string($token)) {
+				return $token === '{';
+			}
+			return false;
+		};
+		$isCloseBrace = function ($token) {
+			if (is_string($token)) {
+				return $token === '}';
+			}
+			return false;
+		};
+		$isOpenParen = function ($token) {
+			if (is_string($token)) {
+				return $token === '(';
+			}
+			return false;
+		};
+		$isCloseParen = function ($token) {
+			if (is_string($token)) {
+				return $token === ')';
+			}
+			return false;
+		};
+
+		$code = '';
+		$token = current($tokens);
+		do {
+			if ($isFunction($token) && ($isOpenParen($nextToken = next($tokens)) || ($isWhitespace($nextToken) && $isOpenParen(next($tokens))))) {
+				$code = 'function(';
+				$level = 0; $begin = false;
+				while ($token = next($tokens)) {
+					if ($isOpenBrace($token)) {
+						$begin = true;
+						$level += 1;
+					} elseif ($isCloseBrace($token)) {
+						$level -= 1;
+						if ($level === 0 && $begin) {
+							$code .= '}';
+							break;
+						}
+					}
+					if (is_array($token)) {
+						$code .= $token[1];
+					} else {
+						$code .= $token;
+					}
+				}
+				break;
+			}
+		} while ($token = next($tokens));
+		return $code;
 	}
 	
 	/**
@@ -93,9 +164,17 @@ class SerializableClosure
 	 */
 	public function getUsedVariables()
 	{
-		return array();
+		if (!preg_match('/^function\([^\(]*\)\s*use\s*\(([^\(]*)\)/', $this->code, $matches)) {
+			return array();
+		}
+		$staticVariables = $this->reflection->getStaticVariables();
+		$usedVariables = array();
+		foreach (explode(',', $matches[1]) as $name) {
+			$name = trim($name, '&$ ');
+			$usedVariables[$name] = $staticVariables[$name];
+		}
+		return $usedVariables;
 	}
-	
 	
 	public function __wakeup()
 	{

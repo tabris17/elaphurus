@@ -5,13 +5,13 @@
  * @link      https://github.com/tabris17/elaphurus
  * @license   Public Domain (http://en.wikipedia.org/wiki/Public_domain)
  */
+ 
+namespace Ela\Config\Exception;
 
-namespace Ela\Log\Appender;
+use Ela\Config\Exception;
 
 /**
- * ChromePHP 日志输出器
+ * 运行时异常
  */
-class ChromePhp extends AbstractAppender
-{
-	
-}
+class InvalidArgumentException extends \InvalidArgumentException implements Exception
+{ }

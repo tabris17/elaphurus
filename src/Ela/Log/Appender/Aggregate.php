@@ -40,6 +40,34 @@ class Aggregate extends AbstractAppender
 	}
 	
 	/**
+	 * 添加输出器
+	 * 
+	 * @param AppenderInterface $appender
+	 * @return null
+	 */
+	public function addAppender(AppenderInterface $appender)
+	{
+		$this->appenders[] = $appender;
+	}
+	
+	/**
+	 * 移除输出器
+	 * 
+	 * @param AppenderInterface $appender
+	 * @return boolean
+	 */
+	public function removeAppender(AppenderInterface $appender)
+	{
+		foreach ($this->appenders as $key => $item) {
+			if ($item === $appender) {
+				unset($this->appenders[$key]);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * (non-PHPdoc)
 	 * @see \Ela\Log\Appender\AbstractAppender::append()
 	 */
@@ -48,18 +76,6 @@ class Aggregate extends AbstractAppender
 		foreach ($this->appenders as $appender) {
 			$appender->append($logEvent);
 		}
-	}
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see \Ela\Log\Appender\AbstractAppender::setLayout()
-	 */
-	public function setLayout($layout)
-	{
-		foreach ($this->appenders as $appender) {
-			$appender->setLayout($layout);
-		}
-		parent::setLayout($layout);
 	}
 	
 	/**

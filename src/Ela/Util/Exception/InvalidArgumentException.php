@@ -6,9 +6,9 @@
  * @license   Public Domain (http://en.wikipedia.org/wiki/Public_domain)
  */
  
-namespace Ela\Log\Exception;
+namespace Ela\Util\Exception;
 
-use Ela\Log\Exception;
+use Ela\Util\Exception;
 
 /**
  * 非法参数异常

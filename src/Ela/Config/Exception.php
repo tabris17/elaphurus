@@ -8,5 +8,8 @@
 
 namespace Ela\Config;
 
+/**
+ * 配置模块异常
+ */
 interface Exception extends \Ela\Exception
 { }

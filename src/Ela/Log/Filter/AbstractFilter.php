@@ -1,8 +1,18 @@
 <?php
+/**
+ * Elaphurus Framework
+ *
+ * @link      https://github.com/tabris17/elaphurus
+ * @license   Public Domain (http://en.wikipedia.org/wiki/Public_domain)
+ */
+
 namespace Ela\Log\Filter;
 
 use Ela\Log\AppenderInterface;
 
+/**
+ * 过滤器抽象类
+ */
 abstract class AbstractFilter implements AppenderInterface
 {
 	/**
@@ -13,7 +23,7 @@ abstract class AbstractFilter implements AppenderInterface
 	protected $appender;
 	
 	/**
-	 * 设置要过滤的日志输出器对象
+	 * 设置被过滤的日志输出器对象
 	 * 
 	 * @param \Ela\Log\AppenderInterface $appender
 	 * @return null
@@ -21,6 +31,16 @@ abstract class AbstractFilter implements AppenderInterface
 	public function setAppender(AppenderInterface $appender)
 	{
 		$this->appender = $appender;
+	}
+	
+	/**
+	 * 获取被过滤的日志输出器对象
+	 *
+	 * @return \Ela\Log\AppenderInterface
+	 */
+	public function getAppender()
+	{
+		return $this->appender;
 	}
 	
 	/**
@@ -41,24 +61,6 @@ abstract class AbstractFilter implements AppenderInterface
 	 * @return boolean 返回日志事件是否通过过滤器。
 	 */
 	abstract public function filter($logEvent);
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see \Ela\Log\AppenderInterface::getName()
-	 */
-	public function getName()
-	{
-		return $this->appender->getName();
-	}
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see \Ela\Log\AppenderInterface::getLayout()
-	 */
-	public function getLayout()
-	{
-		return $this->appender->getLayout();
-	}
 	
 	/**
 	 * (non-PHPdoc)

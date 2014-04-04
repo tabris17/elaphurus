@@ -9,7 +9,9 @@
 namespace Ela;
 
 /**
- * 框架信息
+ * 框架系统类
+ * 
+ * 框架的核心信息和功能。
  */
 class System
 {
@@ -32,5 +34,30 @@ class System
 	 * 
 	 * @var string
 	 */
-	const FULL_VERSION = 'Elaphurus PHP Web Framework';
+	const FULL_VERSION = 'Elaphurus PHP Web Framework Version 1.0.0';
+	
+	/**
+	 * 框架名称
+	 * 
+	 * @var string
+	 */
+	const VENDOR_NAME = 'elaphurus';
+	
+	/**
+	 * 本地化字符串函数
+	 * 
+	 * @param string $text
+	 * @param mixed $argument
+	 * @return string
+	 */
+	public static function _($text, $argument = null)
+	{
+		if (isset($argument)) {
+			$args = func_get_args();
+			$args[0] = dgettext(self::VENDOR_NAME, $text);
+			return call_user_func_array('sprintf', $args);
+		} else {
+			return dgettext(self::VENDOR_NAME, $text);
+		}
+	}
 }
