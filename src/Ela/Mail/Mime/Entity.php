@@ -6,17 +6,12 @@
  * @license   Public Domain (http://en.wikipedia.org/wiki/Public_domain)
  */
 
-namespace Ela\Mail;
+namespace Ela\Mail\Mime;
 
 /**
- * 邮件投递接口
+ * MIME 实体
  */
-interface TransportInterface
+class Entity
 {
-	/**
-	 * 
-	 * @param Message $mail
-	 * @return boolean
-	 */
-	public function send(Message $mail);
+	
 }

@@ -5,18 +5,13 @@
  * @link      https://github.com/tabris17/elaphurus
  * @license   Public Domain (http://en.wikipedia.org/wiki/Public_domain)
  */
+ 
+namespace Ela\Mail\Exception;
 
-namespace Ela\Mail;
+use Ela\Mail\Exception;
 
 /**
- * 邮件投递接口
+ * 非法参数异常
  */
-interface TransportInterface
-{
-	/**
-	 * 
-	 * @param Message $mail
-	 * @return boolean
-	 */
-	public function send(Message $mail);
-}
+class InvalidArgumentException extends \InvalidArgumentException implements Exception
+{ }

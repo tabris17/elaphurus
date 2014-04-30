@@ -17,7 +17,7 @@ class Sendmail implements TransportInterface
 	 * (non-PHPdoc)
 	 * @see \Ela\Mail\TransportInterface::send()
 	 */
-	public function send(Mail $mail)
+	public function send(Message $mail)
 	{
 		//mail
 	}

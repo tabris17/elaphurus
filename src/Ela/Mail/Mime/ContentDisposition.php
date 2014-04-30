@@ -6,17 +6,18 @@
  * @license   Public Domain (http://en.wikipedia.org/wiki/Public_domain)
  */
 
-namespace Ela\Mail;
+namespace Ela\Mail\Mime;
 
 /**
- * 邮件投递接口
+ * 内容性质
  */
-interface TransportInterface
+class ContentDisposition
 {
-	/**
-	 * 
-	 * @param Message $mail
-	 * @return boolean
-	 */
-	public function send(Message $mail);
+	const ATTACHMENT = 'attachment';
+	const INLINE = 'inline';
+	
+	public function __toString()
+	{
+		
+	}
 }

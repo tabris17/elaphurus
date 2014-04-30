@@ -9,14 +9,17 @@
 namespace Ela\Mail;
 
 /**
- * 邮件投递接口
+ * 邮件优先级
  */
-interface TransportInterface
+class MailPriority
 {
-	/**
-	 * 
-	 * @param Message $mail
-	 * @return boolean
-	 */
-	public function send(Message $mail);
+	const HIGHEST = 1;
+	
+	const HIGHER = 2;
+	
+	const NORMAL = 3;
+	
+	const LOWER = 4;
+	
+	const LOWEST = 5;
 }
