@@ -8,7 +8,7 @@
 
 namespace Ela\Mail\Transport;
 
-use Ela\Mail\Mail,
+use Ela\Mail\Message,
 	Ela\Mail\TransportInterface;
 
 class Sendmail implements TransportInterface
@@ -19,6 +19,8 @@ class Sendmail implements TransportInterface
 	 */
 	public function send(Message $mail)
 	{
-		//mail
+		$message = wordwrap($mail->getBody(), 70);
+		//$headers = $mail->g
+		return mail($mail->getTo(), $mail->getSubject(), $message);
 	}
 }

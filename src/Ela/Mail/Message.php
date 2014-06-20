@@ -92,6 +92,16 @@ class Message
 		$this->encoding = $encoding;
 		return $this;
 	}
+
+	/**
+	 * 获取邮件默认编码
+	 * 
+	 * @return string
+	 */
+	public function getEncoding()
+	{
+		return $this->encoding;
+	}
 	
 	/**
 	 * 设置传输接口
@@ -144,6 +154,39 @@ class Message
 	}
 	
 	/**
+	 * 获取标题
+	 * 
+	 * @return string
+	 */
+	public function getSubject()
+	{
+		list($subject, $encoding) = $this->subject;
+		if (empty($encoding) && (null === $encoding = $this->encoding)) {
+			return $subject;
+		} else {
+			return '=?'.$encoding.'?B?'.base64_encode($subject).'?=';
+		}
+	}
+
+	/**
+	 * 获取收件人
+	 * 
+	 * @return string
+	 */
+	public function getTo()
+	{
+		$defaultEncoding = $this->encoding;
+		return implode(',', array_map(function ($to) use ($defaultEncoding) {
+			list ($email, $name, $encoding) = $to;
+			if (empty($encoding) && (null === $encoding = $defaultEncoding)) {
+				return $email;
+			} else {
+				return '=?'.$encoding.'?B?'.base64_encode($name).'?= <'.$email.'>';
+			}
+		}, $this->to));
+	}
+	
+	/**
 	 * 添加收件人
 	 * 
 	 * @param string $email
@@ -170,6 +213,98 @@ class Message
 	}
 	
 	/**
+	 * 获取邮件优先级
+	 * 
+	 * @return int|null
+	 */
+	public function getPriority()
+	{
+		return isset($this->headers['X-Priority']) ? $this->headers['X-Priority'] : null;
+	}
+	
+	/**
+	 * 添加头部
+	 * 
+	 * @param string $field 字段。
+	 * @param string $value 值。
+	 * @param boolean $overwrite 是否覆盖旧值。如果为 false 的话则追加一行。
+	 * @return Message
+	 */
+	public function addHeader($field, $value, $overwrite = true)
+	{
+		if ($overwrite) {
+			$this->headers[$field] = $value;
+		} else {
+			$oldValue = $this->headers[$field];
+			if (is_array($oldValue)) {
+				$this->headers[$field][] = $value;
+			} else {
+				$this->headers[$field] = array($oldValue, $value);
+			}
+		}
+		return $this;
+	}
+	
+	/**
+	 * 添加多个头部
+	 * 
+	 * @param array $headers
+	 * @param boolean $overwrite
+	 * @return Message
+	 */
+	public function addHeaders($headers, $overwrite = true)
+	{
+		if ($overwrite) {
+			$this->headers = array_merge($this->headers, $headers);
+		} else {
+			$allHeaders = $this->headers;
+			foreach ($headers as $field => $value) {
+				$oldValue = $allHeaders[$field];
+				if (is_array($oldValue)) {
+					$allHeaders[$field][] = $value;
+				} else {
+					$allHeaders[$field] = array($oldValue, $value);
+				}
+			}
+			$this->headers = $allHeaders;
+		}
+		return $this;
+	}
+	
+	/**
+	 * 移除头部
+	 * 
+	 * @param string $field
+	 * @return Message
+	 */
+	public function removeHeader($field)
+	{
+		unset($this->headers[$field]);
+		return $this;
+	}
+	
+	/**
+	 * 获取所有头部
+	 * 
+	 * @return array
+	 */
+	public function getHeaders()
+	{
+		return $this->headers;
+	}
+	
+	/**
+	 * 清除所有头部
+	 * 
+	 * @return Message
+	 */
+	public function clearHeaders()
+	{
+		$this->headers = array();
+		return $this;
+	}
+	
+	/**
 	 * 设置发件人
 	 * 
 	 * @param string $email
@@ -181,6 +316,22 @@ class Message
 	{
 		$this->sender = array($email, $name, $encoding);
 		return $this;
+	}
+	
+	/**
+	 * 获取发件人
+	 * 
+	 * @return string
+	 */
+	public function getSender()
+	{
+		$defaultEncoding = $this->encoding;
+		list ($email, $name, $encoding) = $this->sender;
+		if (empty($encoding) && (null === $encoding = $defaultEncoding)) {
+			return $email;
+		} else {
+			return '=?'.$encoding.'?B?'.base64_encode($name).'?= <'.$email.'>';
+		}
 	}
 	
 	/**
@@ -198,6 +349,22 @@ class Message
 	}
 	
 	/**
+	 * 获取邮件来源
+	 * 
+	 * @return string
+	 */
+	public function getFrom()
+	{
+		$defaultEncoding = $this->encoding;
+		list ($email, $name, $encoding) = $this->from;
+		if (empty($encoding) && (null === $encoding = $defaultEncoding)) {
+			return $email;
+		} else {
+			return '=?'.$encoding.'?B?'.base64_encode($name).'?= <'.$email.'>';
+		}
+	}
+	
+	/**
 	 * 设置抄送
 	 * 
 	 * @param string $email
@@ -209,6 +376,24 @@ class Message
 	{
 		$this->cc[] = array($email, $name, $encoding);
 		return $this;
+	}
+	
+	/**
+	 * 获取抄送
+	 * 
+	 * @return string
+	 */
+	public function getCc()
+	{
+		$defaultEncoding = $this->encoding;
+		return implode(',', array_map(function ($to) use ($defaultEncoding) {
+			list ($email, $name, $encoding) = $to;
+			if (empty($encoding) && (null === $encoding = $defaultEncoding)) {
+				return $email;
+			} else {
+				return '=?'.$encoding.'?B?'.base64_encode($name).'?= <'.$email.'>';
+			}
+		}, $this->cc));
 	}
 	
 	/**
@@ -226,6 +411,24 @@ class Message
 	}
 	
 	/**
+	 * 获取暗抄送
+	 * 
+	 * @return string
+	 */
+	public function getBcc()
+	{
+		$defaultEncoding = $this->encoding;
+		return implode(',', array_map(function ($to) use ($defaultEncoding) {
+			list ($email, $name, $encoding) = $to;
+			if (empty($encoding) && (null === $encoding = $defaultEncoding)) {
+				return $email;
+			} else {
+				return '=?'.$encoding.'?B?'.base64_encode($name).'?= <'.$email.'>';
+			}
+		}, $this->bcc));
+	}
+	
+	/**
 	 * 设置回复人
 	 * 
 	 * @param string $email
@@ -240,15 +443,40 @@ class Message
 	}
 	
 	/**
+	 * 获取回复人
+	 * 
+	 * @return string
+	 */
+	public function getReplyTo()
+	{
+		$defaultEncoding = $this->encoding;
+		list ($email, $name, $encoding) = $this->replyTo;
+		if (empty($encoding) && (null === $encoding = $defaultEncoding)) {
+			return $email;
+		} else {
+			return '=?'.$encoding.'?B?'.base64_encode($name).'?= <'.$email.'>';
+		}
+	}
+	
+	/**
 	 * 设置邮件正文
 	 * 
 	 * @param string $body
-	 * @param string $encoding
 	 * @return Message
 	 */
-	public function setBody($body, $encoding = null)
+	public function setBody($body)
 	{
+		$this->body = $body;
 		return $this;
 	}
 	
+	/**
+	 * 获取邮件正文
+	 * 
+	 * @return string
+	 */
+	public function getBody()
+	{
+		return $this->body;
+	}
 }
