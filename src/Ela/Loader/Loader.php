@@ -13,62 +13,62 @@ namespace Ela\Loader;
  */
 class Loader
 {
-	const NAMESPACE_SEPARATOR = '\\';
-	/**
-	 * 
-	 * @var string
-	 */
-	protected $namespace;
-	
-	/**
-	 * 
-	 * @var string
-	 */
-	protected $includePath;
-	
-	/**
-	 * 注册自动加载到系统
-	 * 
-	 * @return boolean
-	 */
-	public function register()
-	{
-		return spl_autoload_register(array($this, 'load'));
-	}
-	
-	/**
-	 * 从系统注销自动加载
-	 * 
-	 * @return boolean
-	 */
-	public function unregister()
-	{
-		return spl_autoload_unregister(array($this, 'load'));
-	}
-	
-	public function __construct($namespace,  $includePath)
-	{
-		$this->namespace = rtrim($namespace, self::NAMESPACE_SEPARATOR);
-		$this->includePath = $includePath . DIRECTORY_SEPARATOR;
-	}
-	
-	/**
-	 * 系统自动加载入口
-	 * 
-	 * @param string $className
-	 * @return null
-	 */
-	public function load($className)
-	{
-		$className = ltrim($className, self::NAMESPACE_SEPARATOR);
-		$fileName  = $this->includePath;
-		$namespace = '';
-		if ($lastNsPos = strrpos($className, self::NAMESPACE_SEPARATOR)) {
-			$namespace = substr($className, 0, $lastNsPos);
-			$className = substr($className, $lastNsPos + 1);
-			$fileName .= str_replace(self::NAMESPACE_SEPARATOR, DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
-		}
-		$fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
-		require $fileName;
-	}
+    const NAMESPACE_SEPARATOR = '\\';
+    /**
+     * 
+     * @var string
+     */
+    protected $namespace;
+    
+    /**
+     * 
+     * @var string
+     */
+    protected $includePath;
+    
+    /**
+     * 注册自动加载到系统
+     * 
+     * @return boolean
+     */
+    public function register()
+    {
+        return spl_autoload_register(array($this, 'load'));
+    }
+    
+    /**
+     * 从系统注销自动加载
+     * 
+     * @return boolean
+     */
+    public function unregister()
+    {
+        return spl_autoload_unregister(array($this, 'load'));
+    }
+    
+    public function __construct($namespace,  $includePath)
+    {
+        $this->namespace = rtrim($namespace, self::NAMESPACE_SEPARATOR);
+        $this->includePath = $includePath . DIRECTORY_SEPARATOR;
+    }
+    
+    /**
+     * 系统自动加载入口
+     * 
+     * @param string $className
+     * @return null
+     */
+    public function load($className)
+    {
+        $className = ltrim($className, self::NAMESPACE_SEPARATOR);
+        $fileName  = $this->includePath;
+        $namespace = '';
+        if ($lastNsPos = strrpos($className, self::NAMESPACE_SEPARATOR)) {
+            $namespace = substr($className, 0, $lastNsPos);
+            $className = substr($className, $lastNsPos + 1);
+            $fileName .= str_replace(self::NAMESPACE_SEPARATOR, DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+        }
+        $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+        require $fileName;
+    }
 }

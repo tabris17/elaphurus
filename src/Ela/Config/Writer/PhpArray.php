@@ -13,11 +13,11 @@ namespace Ela\Config\Writer;
  */
 class PhpArray extends AbstractWriter
 {
-	/**
-	 * (non-PHPdoc)
-	 * @see \Ela\Config\Writer\AbstractWriter::toString()
-	 */
-	protected function toString($config) {
-		return '<?php return '.var_export($config, true).';';
-	}
+    /**
+     * (non-PHPdoc)
+     * @see \Ela\Config\Writer\AbstractWriter::toString()
+     */
+    protected function toString($config) {
+        return '<?php return '.var_export($config, true).';';
+    }
 }

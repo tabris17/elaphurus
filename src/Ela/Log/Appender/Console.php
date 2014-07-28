@@ -9,21 +9,21 @@
 namespace Ela\Log\Appender;
 
 use Ela\Log\layout\LayoutAwareTrait,
-	Ela\Log\layout\LayoutAwareInterface;
+    Ela\Log\layout\LayoutAwareInterface;
 
 /**
  * 输出日志到控制台
  */
 class Console extends AbstractAppender implements LayoutAwareInterface
 {
-	use LayoutAwareTrait;
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see \Ela\Log\Appender\AbstractAppender::append()
-	 */
-	public function append($logEvent)
-	{
-		echo $this->getLayout()->handle($logEvent), PHP_EOL;
-	}
+    use LayoutAwareTrait;
+    
+    /**
+     * (non-PHPdoc)
+     * @see \Ela\Log\Appender\AbstractAppender::append()
+     */
+    public function append($logEvent)
+    {
+        echo $this->getLayout()->handle($logEvent), PHP_EOL;
+    }
 }

@@ -13,5 +13,5 @@ namespace Ela\Mail\Mime;
  */
 class Entity
 {
-	
+    
 }

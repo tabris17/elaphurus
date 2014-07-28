@@ -13,7 +13,7 @@
  */
 
 spl_autoload_register(function ($className) {
-	if (substr($className, 0, 4) === 'Ela\\') {
-		require __DIR__ . DIRECTORY_SEPARATOR . $className . '.php';
-	}
+    if (substr($className, 0, 4) === 'Ela\\') {
+        require __DIR__ . DIRECTORY_SEPARATOR . $className . '.php';
+    }
 });

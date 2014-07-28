@@ -13,24 +13,24 @@ namespace Ela\Log\Filter;
  */
 class Threshold extends AbstractFilter
 {
-	private $level;
-	
-	/**
-	 * Constructor
-	 * 
-	 * @param integer $level
-	 */
-	public function __construct($level)
-	{
-		$this->level = $level;
-	}
+    private $level;
+    
+    /**
+     * Constructor
+     * 
+     * @param integer $level
+     */
+    public function __construct($level)
+    {
+        $this->level = $level;
+    }
 
-	/**
-	 * (non-PHPdoc)
-	 * @see \Ela\Log\Filter\AbstractFilter::filter()
-	 */
-	public function filter($logEvent)
-	{
-		return $logEvent->level <= $this->level;
-	}
+    /**
+     * (non-PHPdoc)
+     * @see \Ela\Log\Filter\AbstractFilter::filter()
+     */
+    public function filter($logEvent)
+    {
+        return $logEvent->level <= $this->level;
+    }
 }

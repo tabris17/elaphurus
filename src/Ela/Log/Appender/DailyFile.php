@@ -14,14 +14,14 @@ namespace Ela\Log\Appender;
 class DailyFile extends Stream
 {
 
-	/**
-	 * Constructor
-	 * 
-	 * @param string $path
-	 */
-	public function __construct($path)
-	{
-		$filename = $path . DIRECTORY_SEPARATOR . date('Y-m-d') . '.log';
-		parent::__construct($filename);
-	}
+    /**
+     * Constructor
+     * 
+     * @param string $path
+     */
+    public function __construct($path)
+    {
+        $filename = $path . DIRECTORY_SEPARATOR . date('Y-m-d') . '.log';
+        parent::__construct($filename);
+    }
 }

@@ -13,10 +13,10 @@ namespace Ela\Mail;
  */
 interface TransportInterface
 {
-	/**
-	 * 
-	 * @param Message $mail
-	 * @return boolean
-	 */
-	public function send(Message $mail);
+    /**
+     * 
+     * @param Message $mail
+     * @return boolean
+     */
+    public function send(Message $mail);
 }

@@ -13,15 +13,15 @@ namespace Ela\Log\Layout;
  */
 interface LayoutAwareInterface
 {
-	/**
-	 * 
-	 * @param LayoutInterface $layout
-	 * @return mixed
-	 */
-	public function setLayout(LayoutInterface $layout);
+    /**
+     * 
+     * @param LayoutInterface $layout
+     * @return mixed
+     */
+    public function setLayout(LayoutInterface $layout);
 
-	/**
-	 * @return LayoutInterface
-	 */
-	public function getLayout();
+    /**
+     * @return LayoutInterface
+     */
+    public function getLayout();
 }

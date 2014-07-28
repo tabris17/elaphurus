@@ -13,11 +13,11 @@ namespace Ela\Log\Layout;
  */
 interface LayoutInterface
 {
-	/**
-	 * 处理 LogEvent 对象
-	 * 
-	 * @param \Ela\Log\LogEvent $logEvent
-	 * @return string
-	 */
-	public function handle($logEvent);
+    /**
+     * 处理 LogEvent 对象
+     * 
+     * @param \Ela\Log\LogEvent $logEvent
+     * @return string
+     */
+    public function handle($logEvent);
 }

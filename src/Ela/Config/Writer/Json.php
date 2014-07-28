@@ -9,23 +9,23 @@
 namespace Ela\Config\Writer;
 
 use Ela\Config\Exception\RuntimeException,
-	Ela\System;
+    Ela\System;
 
 /**
  * JSON 格式配置书写器类
  */
 class Json extends AbstractWriter
 {
-	/**
-	 * (non-PHPdoc)
-	 * @see \Ela\Config\Writer\AbstractWriter::toString()
-	 * @throws RuntimeException
-	 */
-	public function toString(array $config) {
-		$json = json_encode($config);
-		if ($json === false) {
-			throw new RuntimeException(System::_('Error encoding JSON string: %s', Json::getLastError()));
-		}
-		return $json;
-	}
+    /**
+     * (non-PHPdoc)
+     * @see \Ela\Config\Writer\AbstractWriter::toString()
+     * @throws RuntimeException
+     */
+    public function toString(array $config) {
+        $json = json_encode($config);
+        if ($json === false) {
+            throw new RuntimeException(System::_('Error encoding JSON string: %s', Json::getLastError()));
+        }
+        return $json;
+    }
 }

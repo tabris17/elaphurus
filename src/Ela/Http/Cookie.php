@@ -10,5 +10,5 @@ namespace Ela\Http;
 
 class Cookie
 {
-	
+    
 }

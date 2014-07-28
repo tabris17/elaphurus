@@ -9,21 +9,21 @@
 namespace Ela\Log\Appender;
 
 use Ela\Log\layout\LayoutAwareTrait,
-	Ela\Log\Layout\LayoutAwareInterface;
+    Ela\Log\Layout\LayoutAwareInterface;
 
 /**
  * 不输出任何信息
  */
 class HttpHeader extends AbstractAppender implements LayoutAwareInterface
 {
-	use LayoutAwareTrait;
+    use LayoutAwareTrait;
 
-	/**
-	 * (non-PHPdoc)
-	 * @see \Ela\Log\Appender\AbstractAppender::append()
-	 */
-	public function append($logEvent)
-	{
-		header('Log:' . $this->getLayout()->handle($logEvent));
-	}
+    /**
+     * (non-PHPdoc)
+     * @see \Ela\Log\Appender\AbstractAppender::append()
+     */
+    public function append($logEvent)
+    {
+        header('Log:' . $this->getLayout()->handle($logEvent));
+    }
 }

@@ -10,5 +10,5 @@ namespace Ela\Debug;
 
 class Debugger
 {
-	
+    
 }

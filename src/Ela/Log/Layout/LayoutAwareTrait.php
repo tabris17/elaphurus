@@ -15,31 +15,31 @@ use Ela\Log\Layout\Line;
  */
 trait LayoutAwareTrait
 {
-	/**
-	 * @var LayoutInterface
-	 */
-	protected $layout = null;
-	
-	/**
-	 * 
-	 * @param LayoutInterface $layout
-	 * @return mixed
-	 */
-	public function setLayout(LayoutInterface $layout)
-	{
-		$this->layout = $layout;
-		return $this;
-	}
-	
-	/**
-	 * 
-	 * @return null|LayoutInterface
-	 */
-	public function getLayout()
-	{
-		if (empty($this->layout)) {
-			$this->layout = new Line();
-		}
-		return $this->layout;
-	}
+    /**
+     * @var LayoutInterface
+     */
+    protected $layout = null;
+    
+    /**
+     * 
+     * @param LayoutInterface $layout
+     * @return mixed
+     */
+    public function setLayout(LayoutInterface $layout)
+    {
+        $this->layout = $layout;
+        return $this;
+    }
+    
+    /**
+     * 
+     * @return null|LayoutInterface
+     */
+    public function getLayout()
+    {
+        if (empty($this->layout)) {
+            $this->layout = new Line();
+        }
+        return $this->layout;
+    }
 }

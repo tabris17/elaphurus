@@ -13,11 +13,11 @@ namespace Ela\Log;
  */
 interface LoggerAwareInterface
 {
-	/**
-	 * 为对象设置日志记录器
-	 *
-	 * @param LoggerInterface $logger
-	 * @return null
-	 */
-	public function setLogger(LoggerInterface $logger);
+    /**
+     * 为对象设置日志记录器
+     *
+     * @param LoggerInterface $logger
+     * @return null
+     */
+    public function setLogger(LoggerInterface $logger);
 }

@@ -15,24 +15,24 @@ namespace Ela\Log\Filter;
  */
 class Regex extends AbstractFilter
 {
-	private $regex;
+    private $regex;
 
-	/**
-	 * Constructor
-	 *
-	 * @param integer $level
-	 */
-	public function __construct($regex)
-	{
-		$this->regex = $regex;
-	}
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see \Ela\Log\Filter\AbstractFilter::filter()
-	 */
-	public function filter($logEvent)
-	{
-		return (bool)preg_match($this->regex, $logEvent->message);
-	}
+    /**
+     * Constructor
+     *
+     * @param integer $level
+     */
+    public function __construct($regex)
+    {
+        $this->regex = $regex;
+    }
+    
+    /**
+     * (non-PHPdoc)
+     * @see \Ela\Log\Filter\AbstractFilter::filter()
+     */
+    public function filter($logEvent)
+    {
+        return (bool)preg_match($this->regex, $logEvent->message);
+    }
 }

@@ -13,13 +13,13 @@ namespace Ela\Mail;
  */
 class MailPriority
 {
-	const HIGHEST = 1;
-	
-	const HIGHER = 2;
-	
-	const NORMAL = 3;
-	
-	const LOWER = 4;
-	
-	const LOWEST = 5;
+    const HIGHEST = 1;
+    
+    const HIGHER = 2;
+    
+    const NORMAL = 3;
+    
+    const LOWER = 4;
+    
+    const LOWEST = 5;
 }

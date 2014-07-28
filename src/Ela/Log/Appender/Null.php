@@ -13,12 +13,12 @@ namespace Ela\Log\Appender;
  */
 class Null extends AbstractAppender
 {
-	/**
-	 * (non-PHPdoc)
-	 * @see \Ela\Log\Appender\AbstractAppender::append()
-	 */
-	public function append($logEvent)
-	{
-		return;
-	}
+    /**
+     * (non-PHPdoc)
+     * @see \Ela\Log\Appender\AbstractAppender::append()
+     */
+    public function append($logEvent)
+    {
+        return;
+    }
 }

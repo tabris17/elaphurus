@@ -13,11 +13,11 @@ namespace Ela\Mail\Mime;
  */
 class ContentDisposition
 {
-	const ATTACHMENT = 'attachment';
-	const INLINE = 'inline';
-	
-	public function __toString()
-	{
-		
-	}
+    const ATTACHMENT = 'attachment';
+    const INLINE = 'inline';
+    
+    public function __toString()
+    {
+        
+    }
 }
