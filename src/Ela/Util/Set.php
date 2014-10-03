@@ -6,7 +6,7 @@
  * @license   Public Domain (http://en.wikipedia.org/wiki/Public_domain)
  */
 
-namespace Ela\Util\Collections;
+namespace Ela\Util;
   
 /**
  * 集合类
@@ -19,7 +19,7 @@ class Set implements \Iterator, \Countable {
     
     /**
      * 获取空集对象
-     * @return \Ela\Util\Collection\Set 返回空集对象。
+     * @return \Ela\Util\Set 返回空集对象。
      */
     public static function getEmptySet() {
         if (empty(self::$emptySet)) {
@@ -165,7 +165,7 @@ class Set implements \Iterator, \Countable {
     /**
      * 判断一个集合是否为当前集合的子集
      * 
-     * @param \Ela\Util\Collections\Set $set 集合对象。
+     * @param \Ela\Util\Set $set 集合对象。
      * @return boolean 返回集合是否为子集。
      */
     public function isSubset(Set $set) {
@@ -176,8 +176,8 @@ class Set implements \Iterator, \Countable {
     /**
      * 并集运算
      * 
-     * @param \Ela\Util\Collections\Set $set 集合对象。
-     * @return \Ela\Util\Collections\Set 返回运算结果的集合对象。
+     * @param \Ela\Util\Set $set 集合对象。
+     * @return \Ela\Util\Set 返回运算结果的集合对象。
      */
     public function union(Set $set) {
         $union = new static();
@@ -188,8 +188,8 @@ class Set implements \Iterator, \Countable {
     /**
      * 交集运算
      * 
-     * @param \Ela\Util\Collections\Set $set 集合对象。
-     * @return \Ela\Util\Collections\Set 返回运算结果的集合对象。
+     * @param \Ela\Util\Set $set 集合对象。
+     * @return \Ela\Util\Set 返回运算结果的集合对象。
      */
     public function intersect(Set $set) {
         $intersection = new static();
@@ -200,8 +200,8 @@ class Set implements \Iterator, \Countable {
     /**
      * 补集运算
      * 
-     * @param \Ela\Util\Collections\Set $set 集合对象。
-     * @return \Ela\Util\Collections\Set 返回运算结果的集合对象。
+     * @param \Ela\Util\Set $set 集合对象。
+     * @return \Ela\Util\Set 返回运算结果的集合对象。
      */
     public function complement(Set $set) {
         $complement = new static();
@@ -212,8 +212,8 @@ class Set implements \Iterator, \Countable {
     /**
      * 对称差运算
      * 
-     * @param \Ela\Util\Collections\Set $set 集合对象。
-     * @return \Ela\Util\Collections\Set 返回运算结果的集合对象。
+     * @param \Ela\Util\Set $set 集合对象。
+     * @return \Ela\Util\Set 返回运算结果的集合对象。
      */
     public function symmetricDiff(Set $set) {
         $symmetricDifference = new static();
@@ -224,7 +224,7 @@ class Set implements \Iterator, \Countable {
     /**
      * 判断两个集合是否相等
      * 
-     * @param \Ela\Util\Collections\Set $set 集合对象。
+     * @param \Ela\Util\Set $set 集合对象。
      * @return bool 返回两个集合是否相等。
      */
     public function equals(Set $set) {
@@ -236,7 +236,7 @@ class Set implements \Iterator, \Countable {
      * 
      * @param bool $includeEmptySet 是否包含空集。
      * @param bool $includeSelf 是否包含自身。
-     * @return \Ela\Util\Collections\Set 返回当前集合的幂集对象。
+     * @return \Ela\Util\Set 返回当前集合的幂集对象。
      */
     public function getPowerset($includeEmptySet = false, $includeSelf = false) {
         $allElements = array_values($this->elements);
