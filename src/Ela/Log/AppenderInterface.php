@@ -38,7 +38,7 @@ interface AppenderInterface
     /**
      * 返回输出器开启状态
      * 
-     * @return boolean
+     * @return bool
      */
     public function isStarted();
 }

@@ -18,7 +18,7 @@ abstract class AbstractAppender implements AppenderInterface
     /**
      * 输出器是否已经启动
      * 
-     * @var boolean
+     * @var bool
      */
     protected $isStarted = false;
     

@@ -18,7 +18,7 @@ class Threshold extends AbstractFilter
     /**
      * Constructor
      * 
-     * @param integer $level
+     * @param int $level
      */
     public function __construct($level)
     {

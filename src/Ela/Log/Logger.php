@@ -32,14 +32,14 @@ class Logger implements LoggerInterface
     /**
      * 自动提交
      * 
-     * @var boolean
+     * @var bool
      */
     protected $autoCommit = true;
     
     /**
      * 日志记录的最低级别
      * 
-     * @var integer
+     * @var int
      */
     protected $level = PHP_INT_MAX;
     
@@ -162,7 +162,7 @@ class Logger implements LoggerInterface
     /**
      * 设置日志记录的最低级别
      * 
-     * @param integer $level
+     * @param int $level
      * @return null
      */
     public function setLevel($level)
@@ -173,7 +173,7 @@ class Logger implements LoggerInterface
     /**
      * 获得日志记录的最低级别
      * 
-     * @return integer
+     * @return int
      */
     public function getLevel()
     {
@@ -214,7 +214,7 @@ class Logger implements LoggerInterface
     /**
      * 
      * @param Logger $logger
-     * @param boolean $continue
+     * @param bool $continue
      * @return mixed
      */
     public static function registerErrorHandler(Logger $logger, $continue = false)
@@ -234,7 +234,7 @@ class Logger implements LoggerInterface
     
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public static function unregisterErrorHandler()
     {
@@ -270,7 +270,7 @@ class Logger implements LoggerInterface
     
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public static function unregisterExceptionHandler()
     {

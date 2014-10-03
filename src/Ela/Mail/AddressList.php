@@ -77,7 +77,7 @@ class AddressList implements \Countable, \Iterator
      * 获取邮件地址对象
      * 
      * @param string $email
-     * @return boolean|Address
+     * @return bool|Address
      */
     public function get($email)
     {
@@ -92,7 +92,7 @@ class AddressList implements \Countable, \Iterator
      * 移除某个邮件地址
      * 
      * @param string $email
-     * @return boolean
+     * @return bool
      */
     public function remove($email)
     {
@@ -108,7 +108,7 @@ class AddressList implements \Countable, \Iterator
      * 是否包含某个邮件地址
      * 
      * @param string $email
-     * @return boolean
+     * @return bool
      */
     public function has($email)
     {

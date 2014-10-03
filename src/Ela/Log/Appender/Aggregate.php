@@ -54,7 +54,7 @@ class Aggregate extends AbstractAppender
      * 移除输出器
      * 
      * @param AppenderInterface $appender
-     * @return boolean
+     * @return bool
      */
     public function removeAppender(AppenderInterface $appender)
     {

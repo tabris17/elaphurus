@@ -90,7 +90,7 @@ class Timestamp
             $this->timestamp += (int)$microsecond/1000000;
             $microsecond %= 1000000;
         } elseif ($microsecond < 0) {
-            throw new InvalidArgumentException('The microsecond parameter must be positive integer');
+            throw new InvalidArgumentException('The microsecond parameter must be positive int');
         }
         $this->microsecond = $microsecond;
     }

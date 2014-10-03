@@ -56,7 +56,7 @@ class Config implements \ArrayAccess
     /**
      * 设置配置信息是否为只读
      * 
-     * @param boolean $readonly 是否只读。
+     * @param bool $readonly 是否只读。
      * @return null
      */
     public function setReadOnly($readonly = true) {
@@ -66,7 +66,7 @@ class Config implements \ArrayAccess
     /**
      * 获取配置信息是否为只读
      * 
-     * @return boolean 返回配置信息是否只读。
+     * @return bool 返回配置信息是否只读。
      */
     public function isReadOnly() {
         return $this->_readonly;
@@ -90,8 +90,8 @@ class Config implements \ArrayAccess
      * 合并配置信息到当前配置实例
      * 
      * @param array|Config $config 配置信息。
-     * @param boolean $overwrite 是否覆盖。
-     * @return boolean 返回执行是否成功。
+     * @param bool $overwrite 是否覆盖。
+     * @return bool 返回执行是否成功。
      */
     public function merge($config, $overwrite = true) {
         if ($config instanceof Config) {
@@ -200,7 +200,7 @@ class Config implements \ArrayAccess
      * 删除配置信息
      * 
      * @param string $key 配置分支名。
-     * @return boolean 返回操作是否成功。
+     * @return bool 返回操作是否成功。
      * @throws \Ela\Config\Exception\RuntimeException 只读模式下抛出异常。
      */
     public function delete($key) {

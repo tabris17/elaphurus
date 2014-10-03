@@ -20,12 +20,19 @@ class StaticEventManager
     /**
      * 
      * @param \Ela\Event\Event $event
-     * @return boolean
+     * @return bool
      */
     public function dispatchEvent($event)
     {
         $type = $event->getType();
-        
+        if (empty($this->listeners[$type])) {
+            return false;
+        }
+        $priorityList = $this->listeners[$type];
+        foreach ($priorityList as $listener) {
+            
+        }
+        return true;
     }
     
     /**
@@ -49,7 +56,7 @@ class StaticEventManager
      *
      * @param string $type
      * @param callback $listener
-     * @return boolean
+     * @return bool
      */
     public function removeEventListener($type, $listener)
     {
@@ -57,16 +64,13 @@ class StaticEventManager
     	    return false;
     	}
     	$priorityList = $this->listeners[$type];
-    	$newQueue = new PriorityList();
-    	foreach ($priorityList as $item) {
-    		
-    	}
+    	return $priorityList->remove($listener);
     }
     
     /**
      *
      * @param string $type
-     * @return boolean
+     * @return bool
      */
     public function hasEventListener($type)
     {

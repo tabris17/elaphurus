@@ -56,7 +56,7 @@ class Event
     
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function isDefaultPrevented()
     {
@@ -73,7 +73,7 @@ class Event
     
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function isPropagationStopped()
     {
@@ -85,7 +85,7 @@ class Event
      * @param object $target
      * @param string $type
      * @param mixed $params
-     * @param boolean $cancelable
+     * @param bool $cancelable
      */
     public function __construct($target, $type, $params, $cancelable)
     {

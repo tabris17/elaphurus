@@ -14,7 +14,7 @@ namespace Ela\Log;
 class Level
 {
     /**
-     * @const integer 定义日志等级
+     * @const int 定义日志等级
      */
     const EMERGENCY    = 0;
     const ALERT        = 1;
@@ -66,7 +66,7 @@ class Level
     /**
      * 获得日志等级的名称
      * 
-     * @param integer $level
+     * @param int $level
      * @throws Exception\InvalidArgumentException
      * @return string
      */
@@ -82,8 +82,8 @@ class Level
     /**
      * 获得 PHP 错误代码对应的日志等级
      * 
-     * @param integer $errorCode
-     * @return integer
+     * @param int $errorCode
+     * @return int
      */
     public static function getErrorLevel($errorCode)
     {

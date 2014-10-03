@@ -132,7 +132,7 @@ class Message
     /**
      * 发送邮件
      * 
-     * @return boolean
+     * @return bool
      */
     public function send()
     {
@@ -227,7 +227,7 @@ class Message
      * 
      * @param string $field 字段。
      * @param string $value 值。
-     * @param boolean $overwrite 是否覆盖旧值。如果为 false 的话则追加一行。
+     * @param bool $overwrite 是否覆盖旧值。如果为 false 的话则追加一行。
      * @return Message
      */
     public function addHeader($field, $value, $overwrite = true)
@@ -249,7 +249,7 @@ class Message
      * 添加多个头部
      * 
      * @param array $headers
-     * @param boolean $overwrite
+     * @param bool $overwrite
      * @return Message
      */
     public function addHeaders($headers, $overwrite = true)

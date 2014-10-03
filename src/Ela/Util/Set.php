@@ -166,7 +166,7 @@ class Set implements \Iterator, \Countable {
      * 判断一个集合是否为当前集合的子集
      * 
      * @param \Ela\Util\Set $set 集合对象。
-     * @return boolean 返回集合是否为子集。
+     * @return bool 返回集合是否为子集。
      */
     public function isSubset(Set $set) {
         $difference = array_diff_key($set->elements, $this->elements);

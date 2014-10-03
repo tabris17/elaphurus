@@ -21,7 +21,7 @@ class LogEvent
     
     /**
      * 
-     * @var integer
+     * @var int
      */
     public $level;
     
@@ -40,7 +40,7 @@ class LogEvent
     /**
      * Constructor
      * 
-     * @param integer $level
+     * @param int $level
      * @param string $message
      * @param array $context
      */

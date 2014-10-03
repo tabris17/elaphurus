@@ -29,7 +29,7 @@ class Loader
     /**
      * 注册自动加载到系统
      * 
-     * @return boolean
+     * @return bool
      */
     public function register()
     {
@@ -39,7 +39,7 @@ class Loader
     /**
      * 从系统注销自动加载
      * 
-     * @return boolean
+     * @return bool
      */
     public function unregister()
     {

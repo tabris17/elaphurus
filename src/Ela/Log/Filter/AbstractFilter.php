@@ -58,7 +58,7 @@ abstract class AbstractFilter implements AppenderInterface
      * 过滤日志事件
      * 
      * @param \Ela\Log\LogEvent $logEvent
-     * @return boolean 返回日志事件是否通过过滤器。
+     * @return bool 返回日志事件是否通过过滤器。
      */
     abstract public function filter($logEvent);
     

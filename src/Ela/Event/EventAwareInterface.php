@@ -28,14 +28,14 @@ interface EventAwareInterface
      *
      * @param string $type
      * @param callback $listener
-     * @return boolean
+     * @return bool
      */
     public function removeEventListener($type, $listener);
     
     /**
      *
      * @param string $type
-     * @return boolean
+     * @return bool
      */
     public function hasEventListener($type);
     
@@ -43,7 +43,7 @@ interface EventAwareInterface
      * 
      * @param string $type
      * @param mixed $params
-     * @param boolean $cancelable
+     * @param bool $cancelable
      * @return \Ela\Event\Event|boolean
      */
     public function triggerEvent($type, $params = null, $cancelable = false);
@@ -61,14 +61,14 @@ interface EventAwareInterface
      *
      * @param string $type
      * @param callback $listener
-     * @return boolean
+     * @return bool
      */
     public static function removeStaticEventListener($type, $listener);
     
     /**
      *
      * @param string $type
-     * @return boolean
+     * @return bool
      */
     public static function hasStaticEventListener($type);
 }

@@ -19,7 +19,7 @@ class Json
      * 编码
      * 
      * @param string $value
-     * @param integer $options
+     * @param int $options
      * @return string
      */
     public static function encode($value, $options = null)
@@ -31,9 +31,9 @@ class Json
      * 解码
      * 
      * @param string $json
-     * @param boolean $assoc
-     * @param integer $depth
-     * @param integer $options
+     * @param bool $assoc
+     * @param int $depth
+     * @param int $options
      * @return mixed
      */
     public static function decode($json, $assoc = null, $depth = null, $options = null)

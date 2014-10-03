@@ -16,7 +16,7 @@ interface TransportInterface
     /**
      * 
      * @param Message $mail
-     * @return boolean
+     * @return bool
      */
     public function send(Message $mail);
 }
