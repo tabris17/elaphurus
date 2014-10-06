@@ -8,9 +8,9 @@
 
 namespace Ela\Config\Writer;
 
-use Ela\System,
-    Ela\Config\Exception\RuntimeException,
-    Ela\Config\WriterInterface;
+use Ela\Config\Exception\RuntimeException;
+use Ela\Config\WriterInterface;
+use Ela\System;
 
 /**
  * 配置文件书写器抽象类
@@ -21,13 +21,17 @@ abstract class AbstractWriter implements WriterInterface
      * (non-PHPdoc)
      * @see \Ela\Config\WriterInterface::save()
      */
-    public function save($filename, array $config) {
+    public function save($filename, array $config) 
+    {
         if (empty($filename)) {
             throw new RuntimeException(System::_('No file name specified'));
         }
         set_error_handler(
             function ($error, $message = '', $file = '', $line = 0) use ($filename) {
-                throw new RuntimeException(System::_('Error writing to "%s": %s', $filename, $message), $error);
+                throw new RuntimeException(
+                    sprintf(System::_('Error writing to "%s": %s'), $filename, $message),
+                    $error
+                );
             }, E_WARNING
         );
         try {

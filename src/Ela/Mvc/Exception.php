@@ -5,13 +5,11 @@
  * @link      https://github.com/tabris17/elaphurus
  * @license   Public Domain (http://en.wikipedia.org/wiki/Public_domain)
  */
- 
-namespace Ela\Util\Exception;
 
-use Ela\Util\Exception;
+namespace Ela\Mvc;
 
 /**
- * 非法参数异常
+ * 会话模块异常接口
  */
-class InvalidArgumentException extends \InvalidArgumentException implements Exception
+interface Exception extends \Ela\Exception
 { }

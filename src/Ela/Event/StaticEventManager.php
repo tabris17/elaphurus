@@ -7,73 +7,19 @@
  */
 namespace Ela\Event;
 
-use Ela\Util\PriorityList;
-
-class StaticEventManager
-{
-    /**
-     * 
-     * @var array
-     */
-    protected $listeners = array();
-
-    /**
-     * 
-     * @param \Ela\Event\Event $event
-     * @return bool
-     */
-    public function dispatchEvent($event)
-    {
-        $type = $event->getType();
-        if (empty($this->listeners[$type])) {
-            return false;
-        }
-        $priorityList = $this->listeners[$type];
-        foreach ($priorityList as $listener) {
-            
-        }
-        return true;
-    }
+class StaticEventManager extends EventManager
+{   
+    private static $instance;
     
     /**
      *
-     * @param string $type
-     * @param callback $listener
-     * @param int $priority
-     * @return void
+     * @return \Ela\Event\StaticEventManager
      */
-    public function addEventListener($type, $listener, $priority)
+    public static function getInstance()
     {
-        if (empty($this->listeners[$type])) {
-        	$this->listeners[$type] = $priorityList = new PriorityList();
-        } else {
-            $priorityList = $this->listeners[$type];
+        if (isset(self::$instance)) {
+            return self::$instance;
         }
-        $priorityList->insert($listener, $priority);
-    }
-    
-    /**
-     *
-     * @param string $type
-     * @param callback $listener
-     * @return bool
-     */
-    public function removeEventListener($type, $listener)
-    {
-    	if (empty($this->listeners[$type])) {
-    	    return false;
-    	}
-    	$priorityList = $this->listeners[$type];
-    	return $priorityList->remove($listener);
-    }
-    
-    /**
-     *
-     * @param string $type
-     * @return bool
-     */
-    public function hasEventListener($type)
-    {
-        return isset($this->listeners[$type]);
+        return self::$instance = new self();
     }
 }

@@ -8,10 +8,10 @@
 
 namespace Ela\Config\Reader;
 
-use Ela\System,
-    Ela\Util\Json,
-    Ela\Config\Exception\RuntimeException,
-    Ela\Config\ReaderInterface;
+use Ela\Util\Json;
+use Ela\Config\Exception\RuntimeException;
+use Ela\Config\ReaderInterface;
+use Ela\System;
 
 /**
  * 读取 JSON 配置文件
@@ -32,16 +32,21 @@ class Json implements ReaderInterface
      * @see \Ela\Config\ReaderInterface::loadFile()
      * @throws RuntimeException
      */
-    public function loadFile($filename) {
+    public function loadFile($filename) 
+    {
         if (!is_file($filename) || !is_readable($filename)) {
-            throw new RuntimeException(System::_('File "%s" doesn\'t exist or not readable', $filename));
+            throw new RuntimeException(
+                sprintf(System::_('File "%s" doesn\'t exist or not readable'), $filename)
+            );
         }
         
         $this->directory = dirname($filename);
         
         $config = json_decode(file_get_contents($filename), true);
         if ($config === null) {
-            throw new RuntimeException(System::_('Error reading JSON file "%s": %s', $filename, Json::getLastError()));
+            throw new RuntimeException(
+                sprintf(System::_('Error reading JSON file "%s": %s'), $filename, Json::getLastError())
+            );
         }
         
         return $this->process($config);
@@ -52,7 +57,8 @@ class Json implements ReaderInterface
      * @see \Ela\Config\ReaderInterface::loadString()
      * @throws RuntimeException
      */
-    public function loadString($string) {
+    public function loadString($string) 
+    {
         if (empty($string)) {
             return array();
         }
@@ -61,7 +67,9 @@ class Json implements ReaderInterface
 
         $config = json_decode($string, true);
         if ($config === null) {
-            throw new RuntimeException(System::_('Error reading JSON string: %s', Json::getLastError()));
+            throw new RuntimeException(
+                sprintf(System::_('Error reading JSON string: %s'), Json::getLastError())
+            );
         }
         
         return $this->process($config);
@@ -73,7 +81,8 @@ class Json implements ReaderInterface
      * @param array $config 原始数据。
      * @return array 返回处理后的数据。
      */
-    protected function process(&$config) {
+    protected function process(&$config) 
+    {
         foreach ($config as $k => &$v) {
             if (is_array($v)) {
                 $this->process($v);

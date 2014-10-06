@@ -59,7 +59,8 @@ trait EventAwareTrait
      */
     public static function addStaticEventListener($type, $listener, $priority = 0)
     {
-        return $this->getEventManager()->getStaticEventManager()->addEventListener($type, $listener, $priority);
+        $type = get_called_class() . "::$type";
+        return StaticEventManager::getInstance()->addEventListener($type, $listener, $priority);
     }
     
     /**
@@ -68,7 +69,8 @@ trait EventAwareTrait
      */
     public static function removeStaticEventListener($type, $listener)
     {
-        return $this->getEventManager()->getStaticEventManager()->removeEventListener($type, $listener);
+        $type = get_called_class() . "::$type";
+        return StaticEventManager::getInstance()->removeEventListener($type, $listener);
     }
     
     /**
@@ -77,7 +79,8 @@ trait EventAwareTrait
      */
     public static function hasStaticEventListener($type)
     {
-        return $this->getEventManager()->getStaticEventManager()->hasEventListener($type);
+        $type = get_called_class() . "::$type";
+        return StaticEventManager::getInstance()->hasEventListener($type);
     }
     
     /**
@@ -87,9 +90,19 @@ trait EventAwareTrait
     public function triggerEvent($type, $params = null, $cancelable = false)
     {
         $event = new Event($this, $type, $params, $cancelable);
-        if (!$this->getEventManager()->dispatchEvent($event)) {
-            return false;
+        $eventManager = $this->getEventManager();
+        $staticEventManager = StaticEventManager::getInstance();
+        $result = $eventManager->dispatchEvent($event, $type);
+        
+        $className = get_class($this);
+        do {
+            $result = $staticEventManager->dispatchEvent($event, "$className::$type") || $result;
+            if (__CLASS__ === $className) break;
+        } while ($className = get_parent_class($className));
+        
+        if ($result) {
+            return $event;
         }
-        return $event;
+        return false;
     }
 }

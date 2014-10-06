@@ -8,9 +8,9 @@
 
 namespace Ela\Config\Reader;
 
-use Ela\System,
-    Ela\Config\Exception\RuntimeException,
-    Ela\Config\ReaderInterface;
+use Ela\Config\Exception\RuntimeException;
+use Ela\Config\ReaderInterface;
+use Ela\System;
 
 /**
  * 读取 ini 配置文件
@@ -31,14 +31,20 @@ class Ini implements ReaderInterface
      * @see \Ela\Config\ReaderInterface::loadFile()
      * @throws RuntimeException
      */
-    public function loadFile($filename) {
+    public function loadFile($filename) 
+    {
         if (!is_file($filename) || !is_readable($filename)) {
-            throw new RuntimeException(System::_('File "%s" doesn\'t exist or not readable', $filename));
+            throw new RuntimeException(
+                sprintf(System::_('File "%s" doesn\'t exist or not readable'), $filename)
+            );
         }
         $this->directory = dirname($filename);
         set_error_handler(
             function ($error, $message = '', $file = '', $line = 0) use ($filename) {
-                throw new RuntimeException(System::_('Error reading INI file "%s": %s', $filename, $message), $error);
+                throw new RuntimeException(
+                    sprintf(System::_('Error reading INI file "%s": %s'), $filename, $message),
+                    $error
+                );
             }, E_WARNING
         );
         $ini = parse_ini_file($filename, true);
@@ -51,14 +57,18 @@ class Ini implements ReaderInterface
      * @see \Ela\Config\ReaderInterface::loadString()
      * @throws RuntimeException
      */
-    public function loadString($string) {
+    public function loadString($string) 
+    {
         if (empty($string)) {
             return array();
         }
         $this->directory = null;
         set_error_handler(
             function ($error, $message = '', $file = '', $line = 0) {
-                throw new RuntimeException(System::_('Error reading INI string: %s', $message), $error);
+                throw new RuntimeException(
+                    sprintf(System::_('Error reading INI string: %s'), $message),
+                    $error
+                );
             }, E_WARNING
         );
         $ini = parse_ini_string($string, true);
@@ -72,7 +82,8 @@ class Ini implements ReaderInterface
      * @param array $data 原始数据。
      * @return array 返回处理后的数据。
      */
-    protected function process($data) {
+    protected function process($data) 
+    {
         $config = array();
         $this->expandKey($data, $config);
         return $config;
@@ -84,7 +95,8 @@ class Ini implements ReaderInterface
      * @param array $data 原始数据。
      * @param array $config 配置数组。
      */
-    protected function expandKey($data, &$config) {
+    protected function expandKey($data, &$config) 
+    {
         foreach ($data as $key => $value) {
             if ($key === '@include') {
                 $reader = clone $this;
@@ -116,7 +128,8 @@ class Ini implements ReaderInterface
      * @param string $value 需要处理的值。
      * @return string|array 返回处理后的值。
      */
-    protected function parseValue($value) {
+    protected function parseValue($value) 
+    {
         if ($value{0} === '[' && $value{strlen($value) - 1} === ']') {
             return explode(',', substr($value, 1, -1));
         }

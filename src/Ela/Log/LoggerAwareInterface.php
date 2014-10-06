@@ -16,8 +16,13 @@ interface LoggerAwareInterface
     /**
      * 为对象设置日志记录器
      *
-     * @param LoggerInterface $logger
-     * @return null
+     * @param \Ela\Log\LoggerInterface $logger
+     * @return void
      */
     public function setLogger(LoggerInterface $logger);
+    
+    /**
+     * @return \Ela\Log\LoggerInterface
+     */
+    public function getLogger();
 }

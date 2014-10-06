@@ -22,12 +22,11 @@ trait LoggerAwareTrait
      * 为对象设置日志记录器
      *
      * @param LoggerInterface $logger
-     * @return mixed
+     * @return void
      */
     public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
-        return $this;
     }
 
     /**

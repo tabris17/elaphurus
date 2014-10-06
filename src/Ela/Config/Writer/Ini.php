@@ -7,8 +7,8 @@
  */
 namespace Ela\Config\Writer;
 
-use Ela\System,
-    Ela\Config\Exception\RuntimeException;
+use Ela\Config\Exception\RuntimeException;
+use Ela\System;
 
 /**
  * INI 格式配置书写器类
@@ -19,7 +19,8 @@ class Ini extends AbstractWriter
      * (non-PHPdoc)
      * @see \Ela\Config\Writer\AbstractWriter::toString()
      */
-    public function toString(array $config) {
+    public function toString(array $config)
+    {
         return $this->process($config);
     }
 
@@ -31,7 +32,8 @@ class Ini extends AbstractWriter
      * @param string $prefix 分支名前缀。
      * @return string 配置文件字符串。
      */
-    protected function process(&$config, $prefix = '') {
+    protected function process(&$config, $prefix = '')
+    {
         $iniString = '';
         foreach ($config as $k => &$v) {
             $branch = $prefix.$k;
@@ -54,7 +56,8 @@ class Ini extends AbstractWriter
      * @return string 返回编码的值。
      * @throws RuntimeException
      */
-    protected function escapeValue($value) {
+    protected function escapeValue($value)
+    {
         if (is_integer($value) || is_float($value)) {
             return $value;
         } elseif (is_bool($value)) {

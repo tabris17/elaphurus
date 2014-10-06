@@ -49,7 +49,7 @@ class Address
     public function __construct($email, $name = null, $encoding = null)
     {
         if (false === filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new Exception\InvalidArgumentException(System::_('Invalid email address'));
+            throw new Exception\DomainException(System::_('Invalid email address'));
         }
         $this->email = $email;
         list ($this->user, $this->host) = explode('@', $email, 2);
@@ -57,7 +57,7 @@ class Address
             if (isset($encoding)) {
                 $name = '=?' . $encoding . '?B?' . base64_encode($name) . '?=';
             } else {
-                throw new Exception\InvalidArgumentException(System::_('Non-ASCII character in name'));
+                throw new Exception\DomainException(System::_('Non-ASCII character in name'));
             }
         }
         $this->name = $name;

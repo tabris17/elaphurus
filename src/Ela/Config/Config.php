@@ -8,8 +8,8 @@
 
 namespace Ela\Config;
 
-use Ela\System,
-    Ela\Config\Exception\RuntimeException;
+use Ela\Config\Exception\RuntimeException;
+use Ela\System;
 
 /**
  * 配置类
@@ -39,7 +39,8 @@ class Config implements \ArrayAccess
      * 
      * @param array $config 配置信息数组。
      */
-    public function __construct(array $config) {
+    public function __construct(array $config)
+    {
         $this->_config = $config;
         $this->branch($this->_config);
     }
@@ -49,7 +50,8 @@ class Config implements \ArrayAccess
      * 
      * @return array 返回配置信息数组。
      */
-    public function getConfig() {
+    public function getConfig() 
+    {
         return $this->_config;
     }
 
@@ -59,7 +61,8 @@ class Config implements \ArrayAccess
      * @param bool $readonly 是否只读。
      * @return null
      */
-    public function setReadOnly($readonly = true) {
+    public function setReadOnly($readonly = true)
+    {
         $this->_readonly = (bool) $readonly;
     }
 
@@ -68,14 +71,16 @@ class Config implements \ArrayAccess
      * 
      * @return bool 返回配置信息是否只读。
      */
-    public function isReadOnly() {
+    public function isReadOnly()
+    {
         return $this->_readonly;
     }
 
     /**
      * 重置对象配置信息成员变量
      */
-    protected function resetVars() {
+    protected function resetVars()
+    {
         $thisVars = get_object_vars($this);
         $classVars = get_class_vars(__CLASS__);
         foreach ($classVars as $name => $var) {
@@ -93,7 +98,8 @@ class Config implements \ArrayAccess
      * @param bool $overwrite 是否覆盖。
      * @return bool 返回执行是否成功。
      */
-    public function merge($config, $overwrite = true) {
+    public function merge($config, $overwrite = true) 
+    {
         if ($config instanceof Config) {
             $config = $config->getConfig();
         } elseif (!is_array($config)) {
@@ -110,7 +116,8 @@ class Config implements \ArrayAccess
      * @param array $config 配置数组。
      * @param string $prefix 分支前缀。
      */
-    protected function branch(&$config, $prefix = '') {
+    protected function branch(&$config, $prefix = '') 
+    {
         foreach ($config as $key => &$value) {
             $branchName = $prefix.$key;
             if (is_array($value)) {
@@ -128,7 +135,8 @@ class Config implements \ArrayAccess
      * @param string $key 配置分支名。
      * @return string|array 返回配置信息。
      */
-    public function get($key) {
+    public function get($key)
+    {
         if (isset($this->$key)) return $this->$key;
     }
 
@@ -140,7 +148,8 @@ class Config implements \ArrayAccess
      * @return void
      * @throws \Ela\Config\Exception 只读模式下抛出异常。
      */
-    public function set($key, $value) {
+    public function set($key, $value) 
+    {
         // 当值为 NULL 时，做删除该分支处理
         if ($value === null) {
             $this->delete($key);
@@ -184,7 +193,8 @@ class Config implements \ArrayAccess
      * @param string $subkey 
      * @return null
      */
-    protected function removeBranch(&$config, $prefix, $subkey) {
+    protected function removeBranch(&$config, $prefix, $subkey) 
+    {
         if (is_array($config[$subkey])) {
             $sub_config = &$config[$subkey];
             foreach ($sub_config as $k => &$v) {
@@ -203,7 +213,8 @@ class Config implements \ArrayAccess
      * @return bool 返回操作是否成功。
      * @throws \Ela\Config\Exception\RuntimeException 只读模式下抛出异常。
      */
-    public function delete($key) {
+    public function delete($key) 
+    {
         if ($this->_readonly) {
             throw new RuntimeException(System::_('Config data is readonly'));
         }
@@ -222,7 +233,8 @@ class Config implements \ArrayAccess
      * (non-PHPdoc)
      * @see ArrayAccess::offsetExists()
      */
-    public function offsetExists($offset) {
+    public function offsetExists($offset) 
+    {
         return isset($this->$offset);
     }
 
@@ -230,7 +242,8 @@ class Config implements \ArrayAccess
      * (non-PHPdoc)
      * @see ArrayAccess::offsetGet()
      */
-    public function offsetGet($offset) {
+    public function offsetGet($offset) 
+    {
         return $this->get($offset);
     }
 
@@ -239,7 +252,8 @@ class Config implements \ArrayAccess
      * @see ArrayAccess::offsetSet()
      * @throws \Ela\Config\Exception
      */
-    public function offsetSet($offset, $value) {
+    public function offsetSet($offset, $value) 
+    {
         $this->set($offset, $value);
     }
 
@@ -248,7 +262,8 @@ class Config implements \ArrayAccess
      * @see ArrayAccess::offsetUnset()
      * @throws \Ela\Config\Exception
      */
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset) 
+    {
         $this->delete($offset);
     }
 

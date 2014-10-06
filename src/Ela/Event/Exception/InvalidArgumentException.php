@@ -6,9 +6,9 @@
  * @license   Public Domain (http://en.wikipedia.org/wiki/Public_domain)
  */
  
-namespace Ela\Util\Exception;
+namespace Ela\Event\Exception;
 
-use Ela\Util\Exception;
+use Ela\Event\Exception;
 
 /**
  * 非法参数异常

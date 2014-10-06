@@ -8,11 +8,11 @@
 
 namespace Ela\Config;
 
-use Ela\System,
-    Ela\Config\ReaderInterface,
-    Ela\Config\WriterInterface,
-    Ela\Config\Exception\RuntimeException,
-    Ela\Config\Exception\InvalidArgumentException;
+use Ela\Config\ReaderInterface;
+use Ela\Config\WriterInterface;
+use Ela\Config\Exception\RuntimeException;
+use Ela\Config\Exception\InvalidArgumentException;
+use Ela\System;
 
 /**
  * 配置对象工厂类
@@ -47,12 +47,17 @@ class Factory
      * @param string|ReaderInterface $reader 配置读取类对象或类名。
      * @throws InvalidArgumentException
      */
-    public static function registerReader($extension, $reader) {
+    public static function registerReader($extension, $reader) 
+    {
         if (is_a($reader, 'Ela\Config\ReaderInterface', true)) {
             self::$readers[$extension] = $reader;
         } else {
-            throw new InvalidArgumentException(System::_('Reader should be class name or instance of Ela\Config\ReaderInterface; received "%s"',
-                is_object($reader) ? get_class($reader) : $reader));
+            throw new InvalidArgumentException(
+                sprintf(
+                    System::_('Reader should be class name or instance of Ela\Config\ReaderInterface; received "%s"'),
+                    is_object($reader) ? get_class($reader) : $reader
+                )
+            );
         }
     }
 
@@ -63,12 +68,17 @@ class Factory
      * @param string|WriterInterface $writer 配置书写类对象或类名。
      * @throws InvalidArgumentException
      */
-    public static function registerWriter($extension, $writer) {
+    public static function registerWriter($extension, $writer) 
+    {
         if (is_a($writer, 'Ela\Config\WriterInterface', true)) {
             self::$writers[$extension] = $reader;
         } else {
-            throw new Exception(Ela\_('Writer should be class name or instance of Ela\Config\WriterInterface; received "%s"',
-                    is_object($writer) ? get_class($writer) : $writer));
+            throw new InvalidArgumentException(
+                sprintf(
+                    System::_('Writer should be class name or instance of Ela\Config\WriterInterface; received "%s"'),
+                    is_object($writer) ? get_class($writer) : $writer
+                )
+            );
         }
     }
 
@@ -80,18 +90,25 @@ class Factory
      * @return Config|array 配置信息。
      * @throws RuntimeException
      */
-    public static function read($filename, $returnConfigObject = false) {
+    public static function read($filename, $returnConfigObject = false) 
+    {
         $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
         if (empty($extension)) {
-            throw new RuntimeException(System::_('Filename "%s" is missing an extension and cannot be auto-detected', $filename));
+            throw new RuntimeException(
+                sprintf(System::_('Filename "%s" is missing an extension and cannot be auto-detected'), $filename)
+            );
         }
         if ($extension === 'php') {
             if (!is_file($filename) || !is_readable($filename)) {
-                throw new RuntimeException(System::_('File "%s" doesn\'t exist or not readable', $filename));
+                throw new RuntimeException(
+                    sprintf(System::_('File "%s" doesn\'t exist or not readable'), $filename)
+                );
             }
             $config = include $filename;
         } elseif (empty(self::$readers[$extension])) {
-            throw new RuntimeException(System::_('Unsupported config file extension: .%s', $extension));
+            throw new RuntimeException(
+                sprintf(System::_('Unsupported config file extension: .%s'), $extension)
+            );
         } else {
             $reader = self::$readers[$extension];
             if (is_string($reader)) {
@@ -110,13 +127,18 @@ class Factory
      * @return null
      * @throws RuntimeException
      */
-    public static function write($filename, $config) {
+    public static function write($filename, $config) 
+    {
         $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
         if (empty($extension)) {
-            throw new RuntimeException(System::_('Filename "%s" is missing an extension and cannot be auto-detected', $filename));
+            throw new RuntimeException(
+                sprintf(System::_('Filename "%s" is missing an extension and cannot be auto-detected'), $filename)
+            );
         }
         if (empty(self::$writers[$extension])) {
-            throw new RuntimeException(System::_('Unsupported config file extension: .%s', $extension));
+            throw new RuntimeException(
+                sprintf(System::_('Unsupported config file extension: .%s'), $extension)
+            );
         }
         $writer = self::$writers[$extension];
         if (is_string($writer)) {

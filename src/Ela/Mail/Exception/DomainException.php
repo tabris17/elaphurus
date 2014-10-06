@@ -6,12 +6,12 @@
  * @license   Public Domain (http://en.wikipedia.org/wiki/Public_domain)
  */
  
-namespace Ela\Util\Exception;
+namespace Ela\Mail\Exception;
 
-use Ela\Util\Exception;
+use Ela\Mail\Exception;
 
 /**
- * 非法参数异常
+ * 数据不符合异常
  */
-class InvalidArgumentException extends \InvalidArgumentException implements Exception
+class DomainException extends \DomainException implements Exception
 { }

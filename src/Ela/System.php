@@ -47,17 +47,10 @@ class System
      * 本地化字符串函数
      * 
      * @param string $text
-     * @param mixed $argument
      * @return string
      */
-    public static function _($text, $argument = null)
+    public static function _($text)
     {
-        if (isset($argument)) {
-            $args = func_get_args();
-            $args[0] = dgettext(self::VENDOR_NAME, $text);
-            return call_user_func_array('sprintf', $args);
-        } else {
-            return dgettext(self::VENDOR_NAME, $text);
-        }
+        return dgettext(self::VENDOR_NAME, $text);
     }
 }
