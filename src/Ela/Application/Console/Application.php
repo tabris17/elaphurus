@@ -6,9 +6,11 @@
  * @license   Public Domain (http://en.wikipedia.org/wiki/Public_domain)
  */
 
-namespace Ela\Application;
+namespace Ela\Application\Console;
 
-class Web extends AbstractApplication
+use Ela\Application\AbstractApplication;
+
+class Application extends AbstractApplication
 {
-
+    
 }

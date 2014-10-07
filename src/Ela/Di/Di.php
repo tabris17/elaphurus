@@ -35,7 +35,7 @@ class Di implements DiInterface
      */
     protected function lazyRegister($name)
     {
-        if ($this->config[$name]) {
+        if (isset($this->config[$name])) {
             list($definition, $shared) = $this->config[$name];
             $this->services[$name] = $service = new Service();
             $service->setName($name);
@@ -102,9 +102,13 @@ class Di implements DiInterface
      */
     public function getService($name)
     {
-        $service = $this->services[$name];
-        if (empty($this->services[$name]) && false === ($service = $this->lazyRegister($name))) {
-            return false;
+        if (empty($this->services[$name])) {
+            $service = $this->lazyRegister($name);
+            if (false === $service) {
+                return false;
+            }
+        } else {
+            $service = $this->services[$name];
         }
         return $service;
     }
@@ -146,7 +150,7 @@ class Di implements DiInterface
         if (false === $service) {
             return false;
         }
-        return $service->get($this);
+        return $service->getInstance($this);
     }
     
     /**

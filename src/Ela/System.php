@@ -51,6 +51,6 @@ class System
      */
     public static function _($text)
     {
-        return dgettext(self::VENDOR_NAME, $text);
+        return \dgettext(self::VENDOR_NAME, $text);
     }
 }

@@ -90,7 +90,7 @@ class Factory
      * @return Config|array 配置信息。
      * @throws RuntimeException
      */
-    public static function read($filename, $returnConfigObject = false) 
+    public static function read($filename, $returnConfigObject = true) 
     {
         $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
         if (empty($extension)) {
@@ -116,7 +116,7 @@ class Factory
             }
             $config = $reader->loadFile($filename);
         }
-        return ($returnConfigObject) ? $config : new Config($config);
+        return ($returnConfigObject) ? new Config($config) : $config;
     }
 
     /**

@@ -9,7 +9,7 @@ trait EventAwareTrait
      * (non-PHPdoc)
      * @see \Ela\Event\EventAwareInterface::setEventManager()
      */
-    public function setEventManager($eventManager)
+    public function setEventManager(EventManager $eventManager)
     {
         $this->eventManager = $eventManager;
     }

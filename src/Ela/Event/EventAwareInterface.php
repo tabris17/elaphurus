@@ -17,7 +17,7 @@ interface EventAwareInterface
      * @param \Ela\Event\EventManager $eventManager
      * @return void
      */
-    public function setEventManager($eventManager);
+    public function setEventManager(EventManager $eventManager);
     
     /**
      * @return \Ela\Event\EventManager
