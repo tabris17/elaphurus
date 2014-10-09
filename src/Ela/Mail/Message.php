@@ -228,7 +228,7 @@ class Message
      * @param string $field 字段。
      * @param string $value 值。
      * @param bool $overwrite 是否覆盖旧值。如果为 false 的话则追加一行。
-     * @return Message
+     * @return \Ela\Mail\Message
      */
     public function addHeader($field, $value, $overwrite = true)
     {
@@ -250,7 +250,7 @@ class Message
      * 
      * @param array $headers
      * @param bool $overwrite
-     * @return Message
+     * @return \Ela\Mail\Message
      */
     public function addHeaders($headers, $overwrite = true)
     {
@@ -275,7 +275,7 @@ class Message
      * 移除头部
      * 
      * @param string $field
-     * @return Message
+     * @return \Ela\Mail\Message
      */
     public function removeHeader($field)
     {
@@ -296,7 +296,7 @@ class Message
     /**
      * 清除所有头部
      * 
-     * @return Message
+     * @return \Ela\Mail\Message
      */
     public function clearHeaders()
     {
@@ -310,7 +310,7 @@ class Message
      * @param string $email
      * @param string $name
      * @param string $encoding 编码。
-     * @return Message
+     * @return \Ela\Mail\Message
      */
     public function setSender($email, $name = null, $encoding = null)
     {
@@ -340,7 +340,7 @@ class Message
      * @param string $email
      * @param string $name
      * @param string $encoding 编码。
-     * @return Message
+     * @return \Ela\Mail\Message
      */
     public function setFrom($email, $name = null, $encoding = null)
     {
@@ -370,7 +370,7 @@ class Message
      * @param string $email
      * @param string $name
      * @param string $encoding 设置编码。
-     * @return Message
+     * @return \Ela\Mail\Message
      */
     public function addCc($email, $name = null, $encoding = null)
     {
@@ -402,7 +402,7 @@ class Message
      * @param string $email
      * @param string $name
      * @param string $encoding 设置邮件默认编码。
-     * @return Message
+     * @return \Ela\Mail\Message
      */
     public function addBcc($email, $name = null, $encoding = null)
     {
@@ -434,7 +434,7 @@ class Message
      * @param string $email
      * @param string $name
      * @param string $encoding 编码。
-     * @return Message
+     * @return \Ela\Mail\Message
      */
     public function setReplyTo($email, $name = null, $encoding = null)
     {
@@ -462,7 +462,7 @@ class Message
      * 设置邮件正文
      * 
      * @param string $body
-     * @return Message
+     * @return \Ela\Mail\Message
      */
     public function setBody($body)
     {
@@ -484,7 +484,7 @@ class Message
      * 设置HTML邮件内容
      * 
      * @param string $html
-     * @return Message
+     * @return \Ela\Mail\Message
      */
     public function setHtml($html)
     {

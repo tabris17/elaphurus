@@ -18,7 +18,7 @@ class Logger implements LoggerInterface
     /**
      * 日志输出器接口
      * 
-     * @var AppenderInterface
+     * @var \Ela\Log\AppenderInterface
      */
     protected $appender;
     
@@ -44,7 +44,7 @@ class Logger implements LoggerInterface
     protected $level = PHP_INT_MAX;
     
     /**
-     * Construction
+     * 构造函数
      */
     public function __construct()
     {
@@ -55,7 +55,7 @@ class Logger implements LoggerInterface
     /**
      * 设置日志输出器
      * 
-     * @param AppenderInterface $appender
+     * @param \Ela\Log\AppenderInterface $appender
      * @return null
      */
     public function setAppender(AppenderInterface $appender)
@@ -66,7 +66,7 @@ class Logger implements LoggerInterface
     /**
      * 获取日志输出器
      * 
-     * @return AppenderInterface 
+     * @return \Ela\Log\AppenderInterface 
      */
     public function getAppender()
     {
@@ -212,8 +212,9 @@ class Logger implements LoggerInterface
     }
     
     /**
+     * 注册到错误处理句柄
      * 
-     * @param Logger $logger
+     * @param \Ela\Log\Logger $logger
      * @param bool $continue
      * @return mixed
      */
@@ -243,8 +244,8 @@ class Logger implements LoggerInterface
     
     /**
      * 
-     * @param Logger $logger
-     * @return callback
+     * @param \Ela\Log\Logger $logger
+     * @return mixed
      */
     public static function registerExceptionHandler(Logger $logger)
     {
@@ -279,8 +280,8 @@ class Logger implements LoggerInterface
     
     /**
      * 
-     * @param Logger $logger
-     * @return null
+     * @param \Ela\Log\Logger $logger
+     * @return void
      */
     public static function registeredFatalErrorHandler(Logger $logger)
     {

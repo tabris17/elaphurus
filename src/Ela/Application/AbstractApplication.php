@@ -66,6 +66,43 @@ abstract class AbstractApplication implements
     abstract protected function displayException($exception);
     
     /**
+     * 注册异常处理器
+     * 
+     * @return \Ela\Application\AbstractApplication
+     */
+    public function registerExceptionHandler()
+    {
+        set_exception_handler(arry($this, 'handleException'));
+        return $this;
+    }
+    
+    /**
+     * 注册错误处理器
+     * 
+     * @param int $level 处理的错误等级。
+     * @return \Ela\Application\AbstractApplication
+     */
+    public function registerErrorHandler($level = null)
+    {
+        set_error_handler(
+            arry($this, 'handleError'),
+            isset($level) ? $level : error_reporting()
+        );
+        return $this;
+    }
+    
+    /**
+     * 注册程序关闭句柄
+     * 
+     * @return \Ela\Application\AbstractApplication
+     */
+    public function registerShutdownHandler()
+    {
+        register_shutdown_function(array($this, 'handleShutdown'));
+        return $this;
+    }
+    
+    /**
      * 构造函数
      * 
      * @param \Ela\Config\Config $config
@@ -109,13 +146,6 @@ abstract class AbstractApplication implements
         ));
     }
     
-    protected function getDefaultDi()
-    {
-        return new Di(array(
-            
-        ));
-    }
-    
     /**
      * 运行应用程序
      * 
@@ -123,35 +153,31 @@ abstract class AbstractApplication implements
      */
     public function run()
     {
-        try {
-            $config = $this->config;
+        $config = $this->config;
             
-            $di = $this->getDi();
-            $di->register('Application', $this);
-            $di->register('Config', $config);
-            $this->di = $di;
-            ServiceLocator::setDi($di);
-            
-            if ($logger = $di->get('Logger')) {
-                $this->logger = $logger;
-            } else {
-                $di->register('Logger', $this->getDefaultLogger());
-            }
-            
-            set_error_handler(array($this, 'handleError'), error_reporting());
-            register_shutdown_function(array($this, 'handleShutdown'));
-            
-            $event = $this->triggerEvent('begin', null, true);
-            if ($event && $event->isDefaultPrevented()) {
-                return;
-            }
-            
-            $this->main();
-            
-            $event = $this->triggerEvent('end');
-        } catch (Exception $exception) {
-            $this->handleException($exception);
+        $di = $this->getDi();
+        if (!$di) {
+            throw new \Exception($message, $code, $previous);
         }
+        $di->register('Application', $this);
+        $di->register('Config', $config);
+        ServiceLocator::setDi($di);
+           
+        if ($logger = $di->get('Logger')) {
+            $this->logger = $logger;
+        } else {
+            $di->register('Logger', $this->getDefaultLogger());
+        }
+        
+            
+        $event = $this->triggerEvent('begin', null, true);
+        if ($event && $event->isDefaultPrevented()) {
+            return;
+        }
+            
+        $this->main();
+
+        $event = $this->triggerEvent('end');
     }
     
     /**

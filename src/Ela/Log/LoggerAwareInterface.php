@@ -22,6 +22,8 @@ interface LoggerAwareInterface
     public function setLogger(LoggerInterface $logger);
     
     /**
+     * 获取日志记录器对象
+     * 
      * @return \Ela\Log\LoggerInterface
      */
     public function getLogger();

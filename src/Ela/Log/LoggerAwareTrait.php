@@ -19,10 +19,8 @@ trait LoggerAwareTrait
     protected $logger = null;
 
     /**
-     * 为对象设置日志记录器
-     *
-     * @param LoggerInterface $logger
-     * @return void
+     * (non-PHPdoc)
+     * @see \Ela\Log\LoggerAwareInterface::setLogger()
      */
     public function setLogger(LoggerInterface $logger)
     {
@@ -30,9 +28,8 @@ trait LoggerAwareTrait
     }
 
     /**
-     * 获得对象的日志记录器
-     *
-     * @return null|LoggerInterface
+     * (non-PHPdoc)
+     * @see \Ela\Log\LoggerAwareInterface::getLogger()
      */
     public function getLogger()
     {

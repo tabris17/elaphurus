@@ -30,7 +30,7 @@ trait EventAwareTrait
      * (non-PHPdoc)
      * @see \Ela\Event\EventAwareInterface::addEventListener()
      */
-    public function addEventListener($type, $listener, $priority = 0)
+    public function addEventListener($type, callable $listener, $priority = 0)
     {
         return $this->getEventManager()->addEventListener($type, $listener, $priority);
     }
@@ -57,7 +57,7 @@ trait EventAwareTrait
      * (non-PHPdoc)
      * @see \Ela\Event\EventAwareInterface::addStaticEventListener()
      */
-    public static function addStaticEventListener($type, $listener, $priority = 0)
+    public static function addStaticEventListener($type, callable $listener, $priority = 0)
     {
         $type = get_called_class() . "::$type";
         return StaticEventManager::getInstance()->addEventListener($type, $listener, $priority);

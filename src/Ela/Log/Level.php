@@ -26,7 +26,6 @@ class Level
     const DEBUG        = 7;
     const MAX        = 7;
     
-
     /**
      * PHP错误码和日志等级映射表
      *
@@ -67,7 +66,7 @@ class Level
      * 获得日志等级的名称
      * 
      * @param int $level
-     * @throws Exception\InvalidArgumentException
+     * @throws \Ela\Log\Exception\InvalidArgumentException
      * @return string
      */
     public static function getName($level)

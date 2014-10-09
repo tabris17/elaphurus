@@ -41,17 +41,13 @@ class EventManager
     /**
      *
      * @param string $type
-     * @param callback $listener
+     * @param callable $listener
      * @param int $priority
      * @return void
      * @throws \Ela\Event\Exceptoin\InvalidArgumentException
      */
-    public function addEventListener($type, $listener, $priority)
+    public function addEventListener($type, callable $listener, $priority)
     {
-        if (!is_callable($listener)) {
-            throw new InvalidArgumentException(System::_('Listener should be a callable object'));
-        }
-        
         if (empty($this->listeners[$type])) {
             $this->listeners[$type] = $priorityList = new PriorityList();
         } else {
@@ -63,7 +59,7 @@ class EventManager
     /**
      *
      * @param string $type
-     * @param callback $listener
+     * @param callable $listener
      * @return bool
      */
     public function removeEventListener($type, $listener)

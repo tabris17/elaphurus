@@ -17,11 +17,11 @@ trait DiAwareTrait
      * 
      * @var \Ela\Di\DiInterface
      */
-    protected $di;
+    protected $di = null;
     
     /**
-     * 
-     * @param \Ela\Di\DiInterface $di
+     * (non-PHPdoc)
+     * @see \Ela\Di\DiAwareInterface::setDi()
      */
     public function setDi(DiInterface $di)
     {
@@ -29,7 +29,8 @@ trait DiAwareTrait
     }
     
     /**
-     * @return \Ela\Di\DiInterface
+     * (non-PHPdoc)
+     * @see \Ela\Di\DiAwareInterface::getDi()
      */
     public function getDi()
     {

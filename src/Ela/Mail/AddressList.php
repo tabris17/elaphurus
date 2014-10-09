@@ -38,7 +38,9 @@ class AddressList implements \Countable, \Iterator
             } elseif (is_string($address)) {
                 $this->addresses[strtolower($address)] = new Address($address);
             } else {
-                throw new Exception\InvalidArgumentException(System::_('Mail address must be string or instance of Ela\Mail\Address'));
+                throw new Exception\InvalidArgumentException(
+                    System::_('Mail address must be string or instance of Ela\Mail\Address')
+                );
             }
         }
     }
@@ -49,7 +51,7 @@ class AddressList implements \Countable, \Iterator
      * @param string|Address $emailOrAddress
      * @param string $name
      * @param string $encoding
-     * @return AddressList
+     * @return \Ela\Mail\AddressList
      */
     public function add($emailOrAddress, $name = null, $encoding = null)
     {
@@ -64,8 +66,8 @@ class AddressList implements \Countable, \Iterator
     /**
      * 合并两个邮件地址列表
      * 
-     * @param AddressList $addressList
-     * @return AddressList
+     * @param \Ela\Mail\AddressList $addressList
+     * @return \Ela\Mail\AddressList
      */
     public function merge(AddressList $addressList)
     {

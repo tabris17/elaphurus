@@ -19,4 +19,11 @@ interface DiAwareInterface
      * @return void
      */
     public function setDi(DiInterface $di);
+    
+    /**
+     * 返回依赖注入组件
+     * 
+     * @return \Ela\Di\DiInterface
+     */
+    public function getDi();
 }

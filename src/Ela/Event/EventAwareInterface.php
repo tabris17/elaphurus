@@ -27,16 +27,16 @@ interface EventAwareInterface
     /**
      *
      * @param string $type
-     * @param callback $listener
+     * @param callable $listener
      * @param int $priority
      * @return void
      */
-    public function addEventListener($type, $listener, $priority = 0);
+    public function addEventListener($type, callable $listener, $priority = 0);
     
     /**
      *
      * @param string $type
-     * @param callback $listener
+     * @param callable $listener
      * @return bool
      */
     public function removeEventListener($type, $listener);
@@ -64,12 +64,12 @@ interface EventAwareInterface
      * @param int $priority
      * @return void
      */
-    public static function addStaticEventListener($type, $listener, $priority = 0);
+    public static function addStaticEventListener($type, callable $listener, $priority = 0);
     
     /**
      *
      * @param string $type
-     * @param callback $listener
+     * @param callable $listener
      * @return bool
      */
     public static function removeStaticEventListener($type, $listener);

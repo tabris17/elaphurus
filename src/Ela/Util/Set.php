@@ -156,7 +156,7 @@ class Set implements \Iterator, \Countable {
     /**
      * 清除所有元素
      * 
-     * @return null
+     * @return void
      */
     public function clear() {
         $this->elements = array();

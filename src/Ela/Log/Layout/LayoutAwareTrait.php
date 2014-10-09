@@ -22,18 +22,17 @@ trait LayoutAwareTrait
     
     /**
      * 
-     * @param LayoutInterface $layout
-     * @return mixed
+     * @param \Ela\Log\Layout\LayoutInterface $layout
+     * @return void
      */
     public function setLayout(LayoutInterface $layout)
     {
         $this->layout = $layout;
-        return $this;
     }
     
     /**
      * 
-     * @return null|LayoutInterface
+     * @return \Ela\Log\Layout\LayoutInterface
      */
     public function getLayout()
     {

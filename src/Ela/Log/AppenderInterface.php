@@ -16,22 +16,22 @@ interface AppenderInterface
     /**
      * 输出日志
      * 
-     * @param LogEvent $logEvent
-     * @return null
+     * @param \Ela\Log\LogEvent $logEvent
+     * @return void
      */
     public function append($logEvent);
 
     /**
      * 开启输出器
      * 
-     * @return null
+     * @return void
      */
     public function start();
     
     /**
      * 停止输出器
      * 
-     * @return null
+     * @return void
      */
     public function stop();
     

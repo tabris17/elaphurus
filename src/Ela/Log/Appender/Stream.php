@@ -12,6 +12,7 @@ use Ela\Log\Exception\RuntimeException;
 
 use Ela\Log\layout\LayoutAwareTrait,
     Ela\Log\Layout\LayoutAwareInterface;
+use Ela\System;
 
 /**
  * PHP 流日志输出器
@@ -51,7 +52,7 @@ class Stream extends AbstractAppender implements LayoutAwareInterface
                 $handle = fopen($this->filename, $this->mode, $this->useIncludePath);
             }
             if ($handle === false) {
-                throw new RuntimeException('');
+                throw new RuntimeException(System::_('Fail to open stream'));
             }
             $this->handle = $handle;
             $this->isStarted = true;
@@ -71,7 +72,7 @@ class Stream extends AbstractAppender implements LayoutAwareInterface
     {
         $handle = $this->handle;
         if (!fwrite($handle, $this->getLayout()->handle($logEvent) . PHP_EOL)) {
-            throw new RuntimeException('');
+            throw new RuntimeException(System::_('Fail to write stream'));
         }
     }
 }

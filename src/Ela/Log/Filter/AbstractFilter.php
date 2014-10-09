@@ -20,7 +20,7 @@ abstract class AbstractFilter implements AppenderInterface
      * 
      * @var \Ela\Log\AppenderInterface
      */
-    protected $appender;
+    protected $appender = null;
     
     /**
      * 设置被过滤的日志输出器对象

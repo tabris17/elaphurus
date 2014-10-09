@@ -9,9 +9,28 @@ namespace Ela\Event;
 
 class Event
 {
+    /**
+     * 
+     * @var object
+     */
     protected $target;
+    
+    /**
+     * 
+     * @var string
+     */
     protected $type;
+    
+    /**
+     * 
+     * @var bool
+     */
     protected $cancelable;
+    
+    /**
+     * 
+     * @var mixed
+     */
     protected $params;
     
     private $canceled = false;

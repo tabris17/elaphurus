@@ -44,12 +44,12 @@ class Json
     /**
      * 获得错误信息
      * 
-     * @return string|null
+     * @return string
      */
     public static function getLastError()
     {
         switch (json_last_error()) {
-            case JSON_ERROR_NONE: return;
+            case JSON_ERROR_NONE: return '';
             case JSON_ERROR_DEPTH: return System::_('The maximum stack depth has been exceeded');
             case JSON_ERROR_STATE_MISMATCH: return System::_('Invalid or malformed JSON');
             case JSON_ERROR_CTRL_CHAR: return System::_('Control character error, possibly incorrectly encoded');

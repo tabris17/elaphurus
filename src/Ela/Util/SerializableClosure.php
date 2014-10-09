@@ -44,7 +44,7 @@ class SerializableClosure
      * 
      * @param \Closure $closure
      */
-    public function __construct($closure)
+    public function __construct(\Closure $closure)
     {
         $this->closure = $closure;
         $this->reflection = new \ReflectionFunction($closure);

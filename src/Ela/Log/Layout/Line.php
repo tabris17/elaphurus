@@ -16,6 +16,7 @@ use Ela\Log\Level;
 class Line implements LayoutInterface
 {
     const DEFAULT_FORMAT = '{timestamp} {levelName}({level}): {message} [ {context} ]';
+    
     /**
      * 
      * @var string
@@ -23,7 +24,7 @@ class Line implements LayoutInterface
     protected $formatString = self::DEFAULT_FORMAT;
 
     /**
-     * Constructor
+     * 构造函数
      * 
      * @param string $formatString
      */
