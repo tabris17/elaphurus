@@ -41,7 +41,7 @@ class ContentType
      * 
      * @var array
      */
-    public static $extensionContentTypeMap = array(
+    public static $extensionContentTypeMap = [
         'txt'    => self::TEXT_PLAIN,
         'html'    => self::TEXT_HTML,
         'htm'    => self::TEXT_HTML,
@@ -58,7 +58,7 @@ class ContentType
         'json'    => self::APPLICATION_JSON,
         'zip'    => self::APPLICATION_ZIP,
         'gzip'    => self::APPLICATION_GZIP,
-    );
+    ];
 
     /**
      * 获得文件对应的内容类型

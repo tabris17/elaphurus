@@ -11,7 +11,7 @@ class EventManager
      *
      * @var array
      */
-    protected $listeners = array();
+    protected $listeners = [];
     
     /**
      *

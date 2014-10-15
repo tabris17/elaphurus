@@ -177,7 +177,7 @@ class Config implements \ArrayAccess
         $lastKey = array_pop($keyChain);
         while ($key = array_pop($keyChain)) {
             $temp = $value;
-            $value = array();
+            $value = [];
             $value[$key] = $temp;
         }
         

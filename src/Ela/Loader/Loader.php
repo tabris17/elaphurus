@@ -33,7 +33,7 @@ class Loader
      */
     public function register()
     {
-        return spl_autoload_register(array($this, 'load'));
+        return spl_autoload_register([$this, 'load']);
     }
     
     /**
@@ -43,7 +43,7 @@ class Loader
      */
     public function unregister()
     {
-        return spl_autoload_unregister(array($this, 'load'));
+        return spl_autoload_unregister([$this, 'load']);
     }
     
     public function __construct($namespace,  $includePath)

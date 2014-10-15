@@ -165,10 +165,10 @@ class SerializableClosure
     public function getUsedVariables()
     {
         if (!preg_match('/^function\([^\(]*\)\s*use\s*\(([^\(]*)\)/', $this->code, $matches)) {
-            return array();
+            return [];
         }
         $staticVariables = $this->reflection->getStaticVariables();
-        $usedVariables = array();
+        $usedVariables = [];
         foreach (explode(',', $matches[1]) as $name) {
             $name = trim($name, '&$ ');
             $usedVariables[$name] = $staticVariables[$name];
@@ -190,6 +190,6 @@ class SerializableClosure
      */
     public function __sleep()
     {
-        return array('code', 'usedVariables');
+        return ['code', 'usedVariables'];
     }
 }

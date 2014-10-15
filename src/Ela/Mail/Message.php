@@ -149,7 +149,7 @@ class Message
      */
     public function setSubject($subject, $encoding = null)
     {
-        $this->subject = array($subject, $encoding);
+        $this->subject = [$subject, $encoding];
         return $this;
     }
     
@@ -196,7 +196,7 @@ class Message
      */
     public function addTo($email, $name = null, $encoding = null)
     {
-        $this->to[] = array($email, $name, $encoding);
+        $this->to[] = [$email, $name, $encoding];
         return $this;
     }
     
@@ -239,7 +239,7 @@ class Message
             if (is_array($oldValue)) {
                 $this->headers[$field][] = $value;
             } else {
-                $this->headers[$field] = array($oldValue, $value);
+                $this->headers[$field] = [$oldValue, $value];
             }
         }
         return $this;
@@ -263,7 +263,7 @@ class Message
                 if (is_array($oldValue)) {
                     $allHeaders[$field][] = $value;
                 } else {
-                    $allHeaders[$field] = array($oldValue, $value);
+                    $allHeaders[$field] = [$oldValue, $value];
                 }
             }
             $this->headers = $allHeaders;
@@ -314,7 +314,7 @@ class Message
      */
     public function setSender($email, $name = null, $encoding = null)
     {
-        $this->sender = array($email, $name, $encoding);
+        $this->sender = [$email, $name, $encoding];
         return $this;
     }
     
@@ -344,7 +344,7 @@ class Message
      */
     public function setFrom($email, $name = null, $encoding = null)
     {
-        $this->from = array($email, $name, $encoding);
+        $this->from = [$email, $name, $encoding];
         return $this;
     }
     
@@ -374,7 +374,7 @@ class Message
      */
     public function addCc($email, $name = null, $encoding = null)
     {
-        $this->cc[] = array($email, $name, $encoding);
+        $this->cc[] = [$email, $name, $encoding];
         return $this;
     }
     
@@ -406,7 +406,7 @@ class Message
      */
     public function addBcc($email, $name = null, $encoding = null)
     {
-        $this->bcc[] = array($email, $name, $encoding);
+        $this->bcc[] = [$email, $name, $encoding];
         return $this;
     }
     
@@ -438,7 +438,7 @@ class Message
      */
     public function setReplyTo($email, $name = null, $encoding = null)
     {
-        $this->replyTo = array($email, $name, $encoding);
+        $this->replyTo = [$email, $name, $encoding];
         return $this;
     }
     

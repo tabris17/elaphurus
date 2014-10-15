@@ -31,7 +31,7 @@ class Level
      *
      * @var array
      */
-    protected static $errorLevelMap = array(
+    protected static $errorLevelMap = [
         E_NOTICE            => self::NOTICE,
         E_USER_NOTICE       => self::NOTICE,
         E_WARNING           => self::WARNING,
@@ -44,14 +44,14 @@ class Level
         E_STRICT            => self::DEBUG,
         E_DEPRECATED        => self::DEBUG,
         E_USER_DEPRECATED   => self::DEBUG,
-    );
+    ];
     
     /**
      * 日志等级名称表
      *
      * @var array
     */
-    protected static $names = array(
+    protected static $names = [
         self::EMERGENCY    => 'EMERGENCY',
         self::ALERT        => 'ALERT',
         self::CRITICAL    => 'CRITICAL',
@@ -60,7 +60,7 @@ class Level
         self::NOTICE    => 'NOTICE',
         self::INFO        => 'INFO',
         self::DEBUG        => 'DEBUG',
-    );
+    ];
     
     /**
      * 获得日志等级的名称

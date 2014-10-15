@@ -24,21 +24,21 @@ class Factory
      * 
      * @var array
      */
-    protected static $writers = array(
+    protected static $writers = [
         'ini'  => 'Ela\Config\Writer\Ini',
         'json' => 'Ela\Config\Writer\Json',
         'php'  => 'Ela\Config\Writer\PhpArray',
-    );
+    ];
 
     /**
      * 注册的配置阅读器
      * 
      * @var array
      */
-    protected static $readers = array(
+    protected static $readers = [
         'ini'  => 'Ela\Config\Reader\Ini',
         'json' => 'Ela\Config\Reader\Json',
-    );
+    ];
 
     /**
      * 注册配置读取器

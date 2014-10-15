@@ -12,14 +12,15 @@ use Ela\Event\EventAwareInterface;
 use Ela\Event\EventAwareTrait;
 use Ela\Di\DiAwareInterface;
 use Ela\Di\DiAwareTrait;
+use Ela\Di\ServiceLocator;
+use Ela\Di\Di;
 use Ela\Log\LoggerAwareTrait;
 use Ela\Log\LoggerAwareInterface;
-use Ela\Config\Config;
-use Ela\Config\Factory as ConfigFactory;
-use Ela\Di\ServiceLocator;
 use Ela\Log\Logger;
 use Ela\Log\Appender as LoggerAppender;
-use Ela\Di\Di;
+use Ela\Config\Config;
+use Ela\Config\Factory as ConfigFactory;
+use Ela\System;
 
 /**
  * 抽象应用程序类
@@ -34,12 +35,6 @@ abstract class AbstractApplication implements
     use DiAwareTrait;
     use EventAwareTrait;
     use LoggerAwareTrait;
-    
-    /**
-     * 
-     * @var \Ela\Config\Config
-     */
-    protected $config;
     
     /**
      * @return void
@@ -66,18 +61,18 @@ abstract class AbstractApplication implements
     abstract protected function displayException($exception);
     
     /**
-     * 注册异常处理器
+     * 注册应用程序异常处理句柄
      * 
      * @return \Ela\Application\AbstractApplication
      */
     public function registerExceptionHandler()
     {
-        set_exception_handler(arry($this, 'handleException'));
+        set_exception_handler([$this, 'handleException']);
         return $this;
     }
     
     /**
-     * 注册错误处理器
+     * 注册应用程序错误处理句柄
      * 
      * @param int $level 处理的错误等级。
      * @return \Ela\Application\AbstractApplication
@@ -85,20 +80,20 @@ abstract class AbstractApplication implements
     public function registerErrorHandler($level = null)
     {
         set_error_handler(
-            arry($this, 'handleError'),
+            [$this, 'handleError'],
             isset($level) ? $level : error_reporting()
         );
         return $this;
     }
     
     /**
-     * 注册程序关闭句柄
+     * 注册应用程序关闭句柄
      * 
      * @return \Ela\Application\AbstractApplication
      */
     public function registerShutdownHandler()
     {
-        register_shutdown_function(array($this, 'handleShutdown'));
+        register_shutdown_function([$this, 'handleShutdown']);
         return $this;
     }
     
@@ -107,44 +102,8 @@ abstract class AbstractApplication implements
      * 
      * @param \Ela\Config\Config $config
      */
-    public function __construct(Config $config)
-    {
-        $this->config = $config;
-    }
-    
-    /**
-     * 获取应用程序配置
-     * 
-     * @return \Ela\Config\Config
-     */
-    public function getConfig()
-    {
-        return $this->config;
-    }
-    
-    /**
-     * 获取默认日志记录器
-     * 
-     * @return \Ela\Log\Logger
-     */
-    protected function getDefaultLogger()
-    {
-        $logger = new Logger();
-        $logger->setAppender(new LoggerAppender\Null());
-        return $logger;
-    }
-    
-    /**
-     * 获取默认配置
-     * 
-     * @return \Ela\Config\Config
-     */
-    protected function getDefaultConfig()
-    {
-        return new Config(array(
-            
-        ));
-    }
+    private function __construct()
+    { }
     
     /**
      * 运行应用程序
@@ -154,21 +113,14 @@ abstract class AbstractApplication implements
     public function run()
     {
         $config = $this->config;
-            
+        
         $di = $this->getDi();
         if (!$di) {
             throw new \Exception($message, $code, $previous);
         }
         $di->register('Application', $this);
         $di->register('Config', $config);
-        ServiceLocator::setDi($di);
-           
-        if ($logger = $di->get('Logger')) {
-            $this->logger = $logger;
-        } else {
-            $di->register('Logger', $this->getDefaultLogger());
-        }
-        
+        ServiceLocator::setDi($di);        
             
         $event = $this->triggerEvent('begin', null, true);
         if ($event && $event->isDefaultPrevented()) {
@@ -209,12 +161,12 @@ abstract class AbstractApplication implements
      */
     public function handleError($code, $message, $file, $line)
     {
-        $event = $this->triggerEvent('error', array(
+        $event = $this->triggerEvent('error', [
             'code' => $code,
             'message' => $message,
             'file' => $file,
             'line' => $line,
-        ), true);
+        ], true);
         if ($event && $event->isDefaultPrevented()) {
             return;
         }
@@ -229,7 +181,11 @@ abstract class AbstractApplication implements
      */
     public function handleException($exception)
     {
-        $event = $this->triggerEvent('exception', array('exception' => $exception), true);
+        $event = $this->triggerEvent(
+            'exception',
+            ['exception' => $exception],
+            true
+        );
         if ($event && $event->isDefaultPrevented()) {
             return;
         }
@@ -239,12 +195,32 @@ abstract class AbstractApplication implements
     /**
      * 创建应用程序
      * 
-     * @param string $configFile 配置文件。
+     * @param string|\Ela\Config\Config|array $config 配置文件名、配置数组或者配置对象实例。
      * @return \Ela\Application\AbstractApplication
+     * @throws \Ela\Application\Exception\InvalidArgumentException
      */
-    public static function create($configFile)
+    public static function create($config)
     {
-        $config = ConfigFactory::read($configFile);
-        return new static($config);
+        if (is_array($config)) {
+            $config = new Config($config);
+        } elseif (is_string($config)) {
+            $config = ConfigFactory::read($config);
+        }
+        if (!($config instanceof Config)) {
+            throw new Exception\InvalidArgumentException(System::_(
+                'Config should be filename, array or instance of \Ela\Config\Config; received %s',
+                gettype($config)
+            ));
+        }
+        
+        $app = new static($config);
+        $logger = $di->get('Logger');
+        $app->setLogger($logger);
+        return $app;
+        /*
+        $di = new Di($config->get('components'));
+        
+        $app->setDi($di);
+        */
     }
 }

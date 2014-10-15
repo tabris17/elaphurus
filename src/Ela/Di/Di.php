@@ -18,13 +18,13 @@ class Di implements DiInterface
      * 
      * @var array
      */
-    protected $services = array();
+    protected $services = [];
     
     /**
      * 
      * @var array
      */
-    protected $config = array();
+    protected $config = [];
     
     /**
      * 延迟注册服务

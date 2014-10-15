@@ -20,7 +20,7 @@ class Aggregate extends AbstractAppender
      * 
      * @var \Ela\Log\AppenderInterface
      */
-    protected $appenders = array();
+    protected $appenders = [];
     
     /**
      * Constructor

@@ -1,13 +1,11 @@
 <?php
 require __DIR__ . '/../src/Ela.php';
 
-use Ela\Di\Di;
-use Ela\Application\Web\Application;
-use Ela\Config;
 
-
-
-$app = Application::create(__DIR__ .'/config.ini');
-$app->setDi(new Di());
-$app->run();
+echo \Ela\System::readAndWriteFile(__DIR__.'/test.txt', function ($handle) {
+    sleep(10);
+    fwrite($handle, __FILE__);
+    fflush($handle);
+    return __FILE__;
+});
 

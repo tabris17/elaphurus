@@ -56,17 +56,17 @@ class Line implements LayoutInterface
     public function handle($logEvent)
     {
         $level = $logEvent->level;
-        $replace = array();
+        $replace = [];
         foreach ($logEvent->context as $key => $val) {
             $replace['{' . $key . '}'] = $val;
         }
         $message = strtr($logEvent->message, $replace);
-        return strtr($this->formatString, array(
+        return strtr($this->formatString, [
             '{timestamp}' => date('Y-m-d H:i:s', $logEvent->timestamp),
             '{levelName}' => Level::getName($level),
             '{level}' => $level,
             '{message}' => $message,
             '{context}' => $this->foramtContext($logEvent->context),
-        ));
+        ]);
     }
 }

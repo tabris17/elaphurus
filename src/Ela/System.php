@@ -53,4 +53,34 @@ class System
     {
         return \dgettext(self::VENDOR_NAME, $text);
     }
+    
+    /**
+     * 读写文件
+     * 
+     * 如果读取失败则调用回掉函数生成数据并写入文件。
+     * 
+     * @param string $filename 文件名。
+     * @param callable $callback 回调函数参数为文件句柄，返回值为写入内容。
+     * @return string|bool
+     */
+    public static function readAndWriteFile($filename, callable $callback)
+    {
+        if (file_exists($filename) && ($content = file_get_contents($filename))) {
+            return $content;
+        }
+        $handle = fopen($filename, 'c+');
+        if (false === $handle) {
+            return false;
+        }
+        if (false === flock($handle, LOCK_EX)) {
+            fclose($handle);
+            return false;
+        }
+        if (!($filesize = filesize($filename)) ||empty($content = fread($handle, $filesize))) {
+            $content = $callback($handle);
+        }
+        flock($handle, LOCK_UN);
+        fclose($handle);
+        return $content;
+    }
 }

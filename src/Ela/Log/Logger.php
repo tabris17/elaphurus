@@ -77,7 +77,7 @@ class Logger implements LoggerInterface
      * (non-PHPdoc)
      * @see \Ela\Log\LoggerInterface::emergency()
      */
-    public function emergency($message, array $context = array())
+    public function emergency($message, array $context = [])
     {
         $this->log(Level::EMERGENCY, $message, $context);
     }
@@ -86,7 +86,7 @@ class Logger implements LoggerInterface
      * (non-PHPdoc)
      * @see \Ela\Log\LoggerInterface::alert()
      */
-    public function alert($message, array $context = array())
+    public function alert($message, array $context = [])
     {
         $this->log(Level::ALERT, $message, $context);
     }
@@ -95,7 +95,7 @@ class Logger implements LoggerInterface
      * (non-PHPdoc)
      * @see \Ela\Log\LoggerInterface::critical()
      */
-    public function critical($message, array $context = array())
+    public function critical($message, array $context = [])
     {
         $this->log(Level::CRITICAL, $message, $context);
     }
@@ -104,7 +104,7 @@ class Logger implements LoggerInterface
      * (non-PHPdoc)
      * @see \Ela\Log\LoggerInterface::error()
      */
-    public function error($message, array $context = array())
+    public function error($message, array $context = [])
     {
         $this->log(Level::ERROR, $message, $context);
     }
@@ -113,7 +113,7 @@ class Logger implements LoggerInterface
      * (non-PHPdoc)
      * @see \Ela\Log\LoggerInterface::warning()
      */
-    public function warning($message, array $context = array())
+    public function warning($message, array $context = [])
     {
         $this->log(Level::WARNING, $message, $context);
     }
@@ -122,7 +122,7 @@ class Logger implements LoggerInterface
      * (non-PHPdoc)
      * @see \Ela\Log\LoggerInterface::notice()
      */
-    public function notice($message, array $context = array())
+    public function notice($message, array $context = [])
     {
         $this->log(Level::NOTICE, $message, $context);
     }
@@ -131,7 +131,7 @@ class Logger implements LoggerInterface
      * (non-PHPdoc)
      * @see \Ela\Log\LoggerInterface::info()
      */
-    public function info($message, array $context = array())
+    public function info($message, array $context = [])
     {
         $this->log(Level::INFO, $message, $context);
     }
@@ -140,7 +140,7 @@ class Logger implements LoggerInterface
      * (non-PHPdoc)
      * @see \Ela\Log\LoggerInterface::debug()
      */
-    public function debug($message, array $context = array())
+    public function debug($message, array $context = [])
     {
         $this->log(Level::DEBUG, $message, $context);
     }
@@ -149,7 +149,7 @@ class Logger implements LoggerInterface
      * (non-PHPdoc)
      * @see \Ela\Log\LoggerInterface::log()
      */
-    public function log($level, $message, array $context = array())
+    public function log($level, $message, array $context = [])
     {
         if ($level > $this->level) return;
         $logEvent = new LogEvent($level, $message, $context);
@@ -182,6 +182,8 @@ class Logger implements LoggerInterface
     
     /**
      * 开启日志事务
+     * 
+     * @return void
      */
     public function begin()
     {
@@ -190,6 +192,8 @@ class Logger implements LoggerInterface
     
     /**
      * 提交日志事务
+     * 
+     * @return void
      */
     public function commit()
     {
@@ -204,6 +208,8 @@ class Logger implements LoggerInterface
     
     /**
      * 回滚日志事务
+     * 
+     * @return void
      */
     public function rollback()
     {
@@ -222,12 +228,12 @@ class Logger implements LoggerInterface
     {
         return set_error_handler(function ($level, $message, $file, $line, $context) use ($logger, $continue) {
             if (error_reporting() & $level) {
-                $logger->log(Level::getErrorLevel($level), $message, array(
+                $logger->log(Level::getErrorLevel($level), $message, [
                     'errno'        => $level,
                     'file'        => $file,
                     'line'        => $line,
                     'context'    => $context,
-                ));
+                ]);
             }
             return !$continue;
         });
@@ -290,10 +296,7 @@ class Logger implements LoggerInterface
             if (null !== $error && $error['type'] === E_ERROR) {
                 $logger->log(Level::getErrorLevel(E_ERROR),
                     $error['message'],
-                    array(
-                        'file' => $error['file'],
-                        'line' => $error['line']
-                    )
+                    ['file' => $error['file'], 'line' => $error['line']]
                 );
             }
         });

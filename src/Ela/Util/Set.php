@@ -14,7 +14,7 @@ namespace Ela\Util;
  * 支持所有可序列化的元素类型。
  */
 class Set implements \Iterator, \Countable {
-    protected $elements = array();
+    protected $elements = [];
     protected static $emptySet;
     
     /**
@@ -159,7 +159,7 @@ class Set implements \Iterator, \Countable {
      * @return void
      */
     public function clear() {
-        $this->elements = array();
+        $this->elements = [];
     }
 
     /**
@@ -241,7 +241,7 @@ class Set implements \Iterator, \Countable {
     public function getPowerset($includeEmptySet = false, $includeSelf = false) {
         $allElements = array_values($this->elements);
         $count = count($allElements);
-        $powerset = array();
+        $powerset = [];
         if ($includeEmptySet) {
             $powerset[] = self::getEmptySet();
         }
@@ -258,7 +258,7 @@ class Set implements \Iterator, \Countable {
             }
         };
         for ($i = 0; $i < $count - 1; $i ++) {
-            $enum($i, 0, array());
+            $enum($i, 0, []);
         }
         if ($includeSelf) {
             $powerset[] = $this;

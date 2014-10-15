@@ -60,7 +60,7 @@ class Ini implements ReaderInterface
     public function loadString($string) 
     {
         if (empty($string)) {
-            return array();
+            return [];
         }
         $this->directory = null;
         set_error_handler(
@@ -84,7 +84,7 @@ class Ini implements ReaderInterface
      */
     protected function process($data) 
     {
-        $config = array();
+        $config = [];
         $this->expandKey($data, $config);
         return $config;
     }
