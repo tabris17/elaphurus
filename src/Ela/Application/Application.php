@@ -23,7 +23,7 @@ use Ela\Config\Factory as ConfigFactory;
 use Ela\System;
 
 /**
- * 抽象应用程序类
+ * 应用程序类
  * 
  * 事件：begin、end、error、exception
  */
@@ -141,9 +141,9 @@ abstract class AbstractApplication implements
     {
         if ($error = error_get_last()) {
             $this->handleError(
-                $error['type'], 
-                $error['message'], 
-                $error['file'], 
+                $error['type'],
+                $error['message'],
+                $error['file'],
                 $error['line']
             );
         }
